@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ezyix — Freelance IT Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #0a0a0f;
+    --ink-soft: #3a3a4a;
+    --ink-mute: #7a7a8f;
+    --surface: #f7f6f2;
+    --surface-2: #eeecea;
+    --accent: #5b4aff;
+    --accent-2: #ff5b4a;
+    --accent-3: #00c896;
+    --white: #ffffff;
+    --radius: 16px;
+    --radius-sm: 8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, background 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.35s ease, opacity 0.2s;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(247,246,242,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .nav-logo {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .nav-logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--ink);
+    color: var(--white) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; transform: translateY(-1px); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+    padding: 10rem 3rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--white);
+    border: 1px solid rgba(91,74,255,0.2);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent-3); border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.4); }
+  }
+
+  h1 {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    max-width: 900px;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  h1 .line-accent { color: var(--accent); }
+  h1 .line-outline {
+    -webkit-text-stroke: 2px var(--ink);
+    color: transparent;
+  }
+
+  .hero-sub {
+    max-width: 500px;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    margin: 2rem 0 3rem;
+    font-weight: 300;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--white);
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 30px rgba(91,74,255,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(91,74,255,0.45); }
+  .btn-secondary {
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 0.5rem;
+    transition: gap 0.2s;
+  }
+  .btn-secondary:hover { gap: 0.8rem; }
+  .btn-secondary::after { content: '→'; }
+
+  /* Floating shapes */
+  .shape {
+    position: absolute; border-radius: 50%;
+    pointer-events: none; z-index: 0;
+    animation: float 6s ease-in-out infinite;
+  }
+  .shape-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(91,74,255,0.08) 0%, transparent 70%);
+    top: -100px; right: -100px;
+  }
+  .shape-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,200,150,0.08) 0%, transparent 70%);
+    bottom: -50px; left: 30%;
+    animation-delay: -3s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Marquee */
+  .marquee-section {
+    background: var(--ink);
+    padding: 1.2rem 0;
+    overflow: hidden;
+    display: flex;
+  }
+  .marquee-track {
+    display: flex; gap: 3rem;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .marquee-item::after { content: '✦'; color: var(--accent); }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Services */
+  section { padding: 6rem 3rem; }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .service-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--accent));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    width: 52px; height: 52px;
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: var(--icon-bg, rgba(91,74,255,0.08));
+  }
+  .service-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .service-card p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--card-accent, var(--accent));
+    text-decoration: none;
+    transition: gap 0.2s;
+  }
+  .service-link:hover { gap: 0.7rem; }
+
+  /* Stats strip */
+  .stats {
+    background: var(--accent);
+    padding: 4rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.04em;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    font-weight: 400;
+    margin-top: 0.25rem;
+  }
+
+  /* How we work */
+  .process { background: var(--white); }
+  .process-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .process-steps { display: flex; flex-direction: column; gap: 0; }
+  .process-step {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--surface-2);
+    position: relative;
+  }
+  .step-num {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink-mute);
+    min-width: 32px;
+    letter-spacing: 0.05em;
+    padding-top: 0.1rem;
+  }
+  .step-content h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .step-content p {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .process-visual {
+    background: var(--surface);
+    border-radius: 24px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .code-block {
+    background: var(--ink);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.7);
+  }
+  .code-block .kw { color: #a78bff; }
+  .code-block .str { color: #67e8c4; }
+  .code-block .fn { color: #fbbf24; }
+  .code-block .cm { color: rgba(255,255,255,0.35); }
+
+  /* Testimonials */
+  .testimonials { background: var(--surface); }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .testi-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .stars { color: #fbbf24; margin-bottom: 1rem; font-size: 0.85rem; }
+  .testi-text {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+  .testi-author {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--white);
+  }
+  .testi-name { font-weight: 500; font-size: 0.88rem; }
+  .testi-role { font-size: 0.78rem; color: var(--ink-mute); }
+
+  /* CTA */
+  .cta-section {
+    background: var(--ink);
+    padding: 7rem 3rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: 'EZYIX';
+    font-family: 'Clash Display', sans-serif;
+    font-size: 22vw;
+    font-weight: 700;
+    color: rgba(255,255,255,0.02);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+  }
+  .cta-section h2 { color: var(--white); margin-bottom: 1rem; }
+  .cta-section p { color: rgba(255,255,255,0.5); font-size: 1rem; margin-bottom: 2.5rem; font-weight: 300; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .cta-section .btn-primary { background: var(--accent); margin-right: 1rem; }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
+
+  /* Projects Section */
+  .projects { background: var(--white); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+  }
+  .project-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.06);
+    cursor: pointer;
+  }
+  .project-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+  
+  .project-image {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    position: relative;
+  }
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  .project-card:hover .project-image img { transform: scale(1.05); }
+  
+  .project-info {
+    padding: 2rem;
+  }
+  .project-info h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .project-btn {
+    background: var(--accent);
+    color: var(--white);
+    padding: 0.7rem 1.6rem;
+    border: none;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .project-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(91,74,255,0.35); }
+
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+  }
+  .modal.active { display: flex; align-items: center; justify-content: center; }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .modal-content {
+    background: var(--white);
+    border-radius: var(--radius);
+    max-width: 700px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--ink-mute);
+    transition: color 0.2s;
+    z-index: 10;
+  }
+  .modal-close:hover { color: var(--ink); }
+  
+  .modal-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  
+  .modal-body {
+    padding: 3rem;
+    position: relative;
+  }
+  
+  .modal-body h2 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .modal-section {
+    margin-bottom: 2rem;
+  }
+  
+  .modal-section h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--ink);
+  }
+  
+  .features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .features-list li {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  
+  .features-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-3);
+    font-weight: 700;
+  }
+  
+  .modal-response {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    font-style: italic;
+  }
+  
+  .modal-link {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--white);
+    padding: 0.8rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .modal-link:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(91,74,255,0.35); }
+
+  /* Footer */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer .logo-foot {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  footer .logo-foot img {
+    height: 40px;
+    width: auto;
+  }
+  footer .logo-foot span { color: var(--accent); }
+  .foot-copy { font-size: 0.82rem; color: rgba(255,255,255,0.3); }
+  .foot-links { display: flex; gap: 2rem; }
+  .foot-links a { color: rgba(255,255,255,0.45); font-size: 0.85rem; text-decoration: none; transition: color 0.2s; }
+  .foot-links a:hover { color: var(--white); }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 8rem 1.5rem 4rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .process-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .modal-content { width: 95%; }
+    .modal-body { padding: 2rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .foot-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo"><img src="images/logo.png" alt="Ezyix Logo" class="nav-logo-img"> <span>ezyix</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">How We Work</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2"></div>
+
+  <div class="hero-tag">Available for new projects</div>
+  <h1>
+    We build<br>
+    <span class="line-accent">digital things</span><br>
+    <span class="line-outline">that last.</span>
+  </h1>
+  <p class="hero-sub">
+    Ezyix is a freelance IT studio crafting websites, mobile apps, and e-commerce experiences that help businesses grow in the digital world.
+  </p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Start a project</a>
+    <a href="#services" class="btn-secondary">See our work</a>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Website Design</span>
+    <span class="marquee-item">Mobile Apps</span>
+    <span class="marquee-item">E-Commerce</span>
+    <span class="marquee-item">UI/UX Design</span>
+    <span class="marquee-item">SEO & Performance</span>
+    <span class="marquee-item">API Integration</span>
+    <span class="marquee-item">Custom Software</span>
+    <span class="marquee-item">Website Design</span>
+    <span class="marquee-item">Mobile Apps</span>
+    <span class="marquee-item">E-Commerce</span>
+    <span class="marquee-item">UI/UX Design</span>
+    <span class="marquee-item">SEO & Performance</span>
+    <span class="marquee-item">API Integration</span>
+    <span class="marquee-item">Custom Software</span>
+  </div>
+</div>
+
+<!-- Services -->
+<section id="services">
+  <div class="reveal">
+    <div class="section-label">What we do</div>
+    <h2>Services built<br>for the modern web</h2>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card reveal" style="--card-accent:#5b4aff; --icon-bg:rgba(91,74,255,0.08);">
+      <div class="service-icon">🌐</div>
+      <h3>Website Design & Development</h3>
+      <p>From landing pages to full-scale web platforms — we design and build fast, beautiful websites tailored to your brand and goals.</p>
+      <a href="#contact" class="service-link">Get started</a>
+    </div>
+
+    <div class="service-card reveal" style="--card-accent:#ff5b4a; --icon-bg:rgba(255,91,74,0.08);">
+      <div class="service-icon">📱</div>
+      <h3>Mobile App Development</h3>
+      <p>iOS and Android apps built with React Native or Flutter. Smooth, intuitive, and performance-optimized for real-world users.</p>
+      <a href="#contact" class="service-link">Get started</a>
+    </div>
+
+    <div class="service-card reveal" style="--card-accent:#00c896; --icon-bg:rgba(0,200,150,0.08);">
+      <div class="service-icon">🛒</div>
+      <h3>E-Commerce Solutions</h3>
+      <p>Shopify, WooCommerce, or custom-built stores. We handle everything from product listings to checkout optimization and payment integration.</p>
+      <a href="#contact" class="service-link">Get started</a>
+    </div>
+
+    <div class="service-card reveal" style="--card-accent:#f59e0b; --icon-bg:rgba(245,158,11,0.08);">
+      <div class="service-icon">🎨</div>
+      <h3>UI/UX Design</h3>
+      <p>User research, wireframing, and high-fidelity prototypes. Interfaces that people love to use — not just look at.</p>
+      <a href="#contact" class="service-link">Get started</a>
+    </div>
+
+    <div class="service-card reveal" style="--card-accent:#8b5cf6; --icon-bg:rgba(139,92,246,0.08);">
+      <div class="service-icon">⚙️</div>
+      <h3>Custom Software Development</h3>
+      <p>APIs, dashboards, admin panels, and internal tools. We build software that solves your specific business problems.</p>
+      <a href="#contact" class="service-link">Get started</a>
+    </div>
+
+    <div class="service-card reveal" style="--card-accent:#06b6d4; --icon-bg:rgba(6,182,212,0.08);">
+      <div class="service-icon">🚀</div>
+      <h3>SEO & Performance</h3>
+      <p>Speed optimization, Core Web Vitals, and search engine visibility. We make sure your users — and Google — can find you.</p>
+      <a href="#contact" class="service-link">Get started</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Stats
+<div class="stats">
+  <div class="stat reveal">
+    <span class="stat-num">120+</span>
+    <div class="stat-label">Projects delivered</div>
+  </div>
+  <div class="stat reveal">
+    <span class="stat-num">50+</span>
+    <div class="stat-label">Happy clients</div>
+  </div>
+  <div class="stat reveal">
+    <span class="stat-num">5★</span>
+    <div class="stat-label">Average rating</div>
+  </div>
+  <div class="stat reveal">
+    <span class="stat-num">3yrs</span>
+    <div class="stat-label">In business</div>
+  </div>
+</div> -->
+
+<!-- Process -->
+<section id="process" class="process">
+  <div class="reveal">
+    <div class="section-label">How we work</div>
+    <h2>Simple process,<br>exceptional results</h2>
+  </div>
+  <div class="process-grid">
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <span class="step-num">01</span>
+        <div class="step-content">
+          <h4>Discovery Call</h4>
+          <p>We start with a free consultation to understand your goals, timeline, and budget. No commitment, no pressure.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <span class="step-num">02</span>
+        <div class="step-content">
+          <h4>Design & Prototype</h4>
+          <p>We create wireframes and mockups for your approval before writing a single line of code. You stay in control.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <span class="step-num">03</span>
+        <div class="step-content">
+          <h4>Build & Iterate</h4>
+          <p>Development sprints with regular demos. Your feedback shapes every step of the process.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <span class="step-num">04</span>
+        <div class="step-content">
+          <h4>Launch & Support</h4>
+          <p>We handle deployment and stay on hand post-launch. Your success is our long-term business.</p>
+        </div>
+      </div>
+    </div>
+    <div class="process-visual reveal">
+      <div class="code-block">
+        <div><span class="cm">// ezyix project config</span></div>
+        <div><span class="kw">const</span> <span class="fn">project</span> = {</div>
+        <div>&nbsp;&nbsp;client: <span class="str">"Your Business"</span>,</div>
+        <div>&nbsp;&nbsp;type: <span class="str">"ecommerce"</span>,</div>
+        <div>&nbsp;&nbsp;stack: [<span class="str">"React"</span>, <span class="str">"Node"</span>],</div>
+        <div>&nbsp;&nbsp;timeline: <span class="str">"4 weeks"</span>,</div>
+        <div>&nbsp;&nbsp;status: <span class="str">"✓ on track"</span></div>
+        <div>}</div>
+        <br>
+        <div><span class="cm">// milestone update</span></div>
+        <div><span class="fn">deploy</span>(<span class="fn">project</span>.<span class="str">launch</span>)</div>
+        <div>&nbsp;&nbsp;.<span class="fn">then</span>(() => <span class="str">"🚀 live!"</span>)</div>
+      </div>
+      <div style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+        <span style="background:rgba(91,74,255,0.1);color:var(--accent);font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">React</span>
+        <span style="background:rgba(0,200,150,0.1);color:#00a87a;font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">Node.js</span>
+        <span style="background:rgba(255,91,74,0.1);color:#d63f2e;font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">Flutter</span>
+        <span style="background:rgba(245,158,11,0.1);color:#b37a00;font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">Shopify</span>
+        <span style="background:rgba(6,182,212,0.1);color:#0891b2;font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">Next.js</span>
+        <span style="background:rgba(139,92,246,0.1);color:#7c3aed;font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">WordPress</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="projects">
+  <div class="reveal">
+    <div class="section-label">Portfolio</div>
+    <h2>Latest Projects</h2>
+  </div>
+  <div class="projects-grid">
+    
+    <div class="project-card reveal" onclick="openProjectModal('havi')">
+      <div class="project-image">
+        <img src="images/Havi image.png" alt="Havi Perfumes">
+      </div>
+      <div class="project-info">
+        <h3>Havi Perfumes</h3>
+        <p class="project-desc">A luxurious perfume brand website showcasing premium fragrances with elegant design and smooth user experience.</p>
+        <button class="project-btn" onclick="openProjectModal('havi')">Open Project</button>
+      </div>
+    </div>
+
+    <div class="project-card reveal" onclick="openProjectModal('thwaba')">
+      <div class="project-image">
+        <img src="images/Thwab image.png" alt="Thwaba Perfumes">
+      </div>
+      <div class="project-info">
+        <h3>Thwaba Perfumes</h3>
+        <p class="project-desc">An Arabian luxury perfume collection website featuring curated scents with sophisticated UI and immersive experience.</p>
+        <button class="project-btn" onclick="openProjectModal('thwaba')">Open Project</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Project Modal -->
+<div id="projectModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeProjectModal()">✕</button>
+    <img id="modalImage" class="modal-image" src="" alt="Project">
+    <div class="modal-body">
+      <h2 id="modalTitle"></h2>
+      
+      <div class="modal-section">
+        <h3>Features</h3>
+        <ul class="features-list" id="modalFeatures"></ul>
+      </div>
+      
+      <div class="modal-section">
+        <h3>Client Response</h3>
+        <div class="modal-response" id="modalResponse"></div>
+      </div>
+      
+      <div class="modal-section">
+        <a id="modalLink" class="modal-link" href="" target="_blank">Visit Live Project ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonials -->
+<section id="about" class="testimonials">
+  <div class="reveal">
+    <div class="section-label">Client love</div>
+    <h2>What our clients say</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Ezyix transformed our outdated website into a conversion machine. Sales went up 40% within the first month of launch."</p>
+      <div class="testi-author">
+        <div class="avatar" style="background:var(--accent);">AK</div>
+        <div>
+          <div class="testi-name">Arjun Kumar</div>
+          <div class="testi-role">Founder, ShopKart India</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Fast turnaround, clean code, and incredible attention to design detail. Exactly what we needed for our mobile app launch."</p>
+      <div class="testi-author">
+        <div class="avatar" style="background:#ff5b4a;">SR</div>
+        <div>
+          <div class="testi-name">Sneha Rao</div>
+          <div class="testi-role">CTO, Finnova Tech</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Their e-commerce setup was seamless. The Shopify store they built handles 500+ daily orders without a single hiccup."</p>
+      <div class="testi-author">
+        <div class="avatar" style="background:#00c896;">MP</div>
+        <div>
+          <div class="testi-name">Mohammed Prathap</div>
+          <div class="testi-role">Owner, Trendzilla</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div class="reveal">
+    <div class="section-label" style="color:rgba(255,255,255,0.4);">Ready to build?</div>
+    <h2>Let's make something<br>great together.</h2>
+    <p>Tell us about your project and we'll get back to you within 24 hours with a free quote.</p>
+    <div>
+      <a href="mailto:hello@ezyix.com" class="btn-primary">Email us</a>
+      <a href="https://wa.me/" class="btn-ghost">WhatsApp ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="logo-foot"><img src="images/logo.png" alt="Ezyix Logo"> <span>ezyix</span></div>
+  <div class="foot-links">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#projects">Projects</a>
+    <a href="mailto:hello@ezyix.com">Contact</a>
+  </div>
+  <div class="foot-copy">© 2025 Ezyix. All rights reserved.</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      ring.style.opacity = '0';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.opacity = '0.5';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = (i * 0.05) + 's';
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Counter animation for stats
+  function animateCount(el, target, suffix) {
+    let start = 0;
+    const step = target / 60;
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { start = target; clearInterval(timer); }
+      el.textContent = Math.floor(start) + suffix;
+    }, 25);
+  }
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const nums = entry.target.querySelectorAll('.stat-num');
+        nums.forEach(n => {
+          const txt = n.textContent;
+          if (txt.includes('+')) animateCount(n, parseInt(txt), '+');
+          else if (txt.includes('★')) { /* static */ }
+          else if (txt.includes('yrs')) animateCount(n, 3, 'yrs');
+        });
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const statsEl = document.querySelector('.stats');
+  if (statsEl) statsObserver.observe(statsEl);
+
+  // Project Modal Data
+  const projectsData = {
+    havi: {
+      title: 'Havi Perfumes',
+      image: 'images/Havi image.png',
+      features: [
+        'Elegant product showcase with high-resolution images',
+        'Smooth navigation and intuitive user interface',
+        'Responsive design for all devices',
+        'Fast loading and optimized performance',
+        'Clean, modern aesthetic with luxury branding'
+      ],
+      response: '"The website exceeded our expectations. It perfectly captures the essence of our luxury brand and has significantly increased our customer engagement. The design is elegant and the user experience is seamless."',
+      link: 'https://ezyix.github.io/Havi-perfumes/'
+    },
+    thwaba: {
+      title: 'Thwaba Perfumes',
+      image: 'images/Thwab image.png',
+      features: [
+        'Sophisticated Arabian luxury perfume collection display',
+        'Interactive product filtering and search',
+        'Immersive brand storytelling experience',
+        'Mobile-first responsive design',
+        'Optimized for conversions and user engagement'
+      ],
+      response: '"Thwaba Perfumes team did an outstanding job bringing our vision to life. The website beautifully showcases our curated collection with an immersive and elegant design that resonates with our target audience."',
+      link: 'https://ezyix.github.io/Thwaba-Perfumes/'
+    }
+  };
+
+  // Open Project Modal
+  function openProjectModal(projectId) {
+    const project = projectsData[projectId];
+    if (!project) return;
+
+    document.getElementById('modalTitle').textContent = project.title;
+    document.getElementById('modalImage').src = project.image;
+    document.getElementById('modalResponse').textContent = project.response;
+    document.getElementById('modalLink').href = project.link;
+
+    const featuresList = document.getElementById('modalFeatures');
+    featuresList.innerHTML = '';
+    project.features.forEach(feature => {
+      const li = document.createElement('li');
+      li.textContent = feature;
+      featuresList.appendChild(li);
+    });
+
+    document.getElementById('projectModal').classList.add('active');
+  }
+
+  // Close Project Modal
+  function closeProjectModal() {
+    document.getElementById('projectModal').classList.remove('active');
+  }
+
+  // Close modal when clicking outside
+  document.getElementById('projectModal').addEventListener('click', (e) => {
+    if (e.target.id === 'projectModal') {
+      closeProjectModal();
+    }
+  });
+</script>
+</body>
+</html>
