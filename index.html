@@ -1,38 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ezyix — Freelance IT Solutions</title>
+<script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+  /* ===== THEME VARIABLES ===== */
   :root {
     --ink: #0a0a0f;
     --ink-soft: #3a3a4a;
     --ink-mute: #7a7a8f;
-    --surface: #f7f6f2;
+    --surface: #f7f6f2; /* Kept for fallback */
+    --page-bg: linear-gradient(135deg, #e4e9f2 0%, #f4f6f8 100%);
     --surface-2: #eeecea;
+    --surface-3: #e5e3de;
+    --nav-bg: rgba(247,246,242,0.88);
+    --card-bg: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --glass-blur: blur(12px) saturate(180%);
+    --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
     --accent: #5b4aff;
     --accent-2: #ff5b4a;
     --accent-3: #00c896;
     --white: #ffffff;
     --radius: 16px;
     --radius-sm: 8px;
+    --shadow-card: 0 4px 24px rgba(0,0,0,0.06);
+    --shadow-hover: 0 20px 60px rgba(0,0,0,0.1);
+    --border: rgba(0,0,0,0.07);
+    --theme-transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  [data-theme="dark"] {
+    --ink: #f0eff9;
+    --ink-soft: #b0afc8;
+    --ink-mute: #6a6980;
+    --surface: #0f0e18; /* Kept for fallback */
+    --page-bg: linear-gradient(to bottom right, #0b0f19, #141326);
+    --surface-2: #18172a;
+    --surface-3: #201f35;
+    --nav-bg: rgba(15,14,24,0.9);
+    --card-bg: #18172a;
+    --glass-bg: rgba(15, 22, 36, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-blur: blur(12px) saturate(180%);
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    --white: #18172a;
+    --shadow-card: 0 4px 24px rgba(0,0,0,0.3);
+    --shadow-hover: 0 20px 60px rgba(0,0,0,0.4);
+    --border: rgba(255,255,255,0.08);
   }
 
   html { scroll-behavior: smooth; }
 
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--surface);
+    background: var(--page-bg, var(--surface));
     color: var(--ink);
     overflow-x: hidden;
     cursor: none;
+    transition: var(--theme-transition);
   }
 
-  /* Custom Cursor */
+  /* ===== CUSTOM CURSOR ===== */
   .cursor {
     width: 12px; height: 12px;
     background: var(--accent);
@@ -55,54 +90,124 @@
     opacity: 0.5;
   }
 
-  /* Nav */
+  /* ===== NAV ===== */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 3rem;
-    background: rgba(247,246,242,0.85);
+    padding: 1.1rem 3rem;
+    background: var(--nav-bg);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: var(--theme-transition);
   }
   .nav-logo {
     font-family: 'Clash Display', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     font-weight: 700;
     color: var(--ink);
     text-decoration: none;
     letter-spacing: -0.03em;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
+    transition: color 0.2s;
   }
-  .nav-logo-img {
-    height: 40px;
-    width: auto;
-    object-fit: contain;
-  }
+  .nav-logo-img { height: 38px; width: auto; object-fit: contain; }
   .nav-logo span { color: var(--accent); }
   .nav-links {
-    display: flex; gap: 2.5rem; list-style: none;
+    display: flex; gap: 2.5rem; list-style: none; align-items: center;
   }
   .nav-links a {
     text-decoration: none;
     color: var(--ink-soft);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 500;
     letter-spacing: 0.01em;
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--accent); }
   .nav-cta {
-    background: var(--ink);
-    color: var(--white) !important;
-    padding: 0.6rem 1.4rem;
+    background: var(--ink) !important;
+    color: var(--surface) !important;
+    padding: 0.55rem 1.35rem;
     border-radius: 100px;
     transition: background 0.2s, transform 0.15s !important;
   }
-  .nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; transform: translateY(-1px); }
+  .nav-cta:hover { background: var(--accent) !important; color: #fff !important; transform: translateY(-1px); }
 
-  /* Hero */
+  /* Theme toggle button */
+  .theme-toggle {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--surface);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    transition: background 0.2s, transform 0.2s, border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+  }
+  .theme-toggle:hover { transform: scale(1.08); opacity: 0.9; }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    border: none;
+    background: none;
+    z-index: 200;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px; height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--surface);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    transition: var(--theme-transition);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--accent); }
+  .mobile-menu .mobile-cta {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 0.8rem 2.2rem;
+    border-radius: 100px;
+    font-size: 1.1rem !important;
+    margin-top: 0.5rem;
+  }
+
+  /* ===== HERO ===== */
   .hero {
     min-height: 100vh;
     display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
@@ -111,8 +216,8 @@
   }
   .hero-tag {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--white);
-    border: 1px solid rgba(91,74,255,0.2);
+    background: var(--card-bg);
+    border: 1px solid rgba(91,74,255,0.25);
     color: var(--accent);
     font-size: 0.78rem;
     font-weight: 500;
@@ -122,6 +227,7 @@
     border-radius: 100px;
     margin-bottom: 2rem;
     animation: fadeUp 0.7s ease both;
+    transition: background 0.35s, border-color 0.35s;
   }
   .hero-tag::before {
     content: ''; width: 6px; height: 6px;
@@ -130,12 +236,11 @@
   }
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.4); }
+    50% { opacity: 0.4; transform: scale(1.5); }
   }
-
   h1 {
     font-family: 'Clash Display', sans-serif;
-    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-size: clamp(3rem, 7vw, 6.2rem);
     font-weight: 700;
     line-height: 1.0;
     letter-spacing: -0.04em;
@@ -146,8 +251,8 @@
   h1 .line-outline {
     -webkit-text-stroke: 2px var(--ink);
     color: transparent;
+    transition: -webkit-text-stroke 0.35s;
   }
-
   .hero-sub {
     max-width: 500px;
     font-size: 1.05rem;
@@ -156,15 +261,15 @@
     margin: 2rem 0 3rem;
     font-weight: 300;
     animation: fadeUp 0.7s 0.2s ease both;
+    transition: color 0.35s;
   }
-
   .hero-actions {
     display: flex; gap: 1rem; align-items: center;
     animation: fadeUp 0.7s 0.3s ease both;
   }
   .btn-primary {
     background: var(--accent);
-    color: var(--white);
+    color: #fff;
     padding: 0.9rem 2rem;
     border-radius: 100px;
     font-size: 0.95rem;
@@ -172,6 +277,7 @@
     text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 8px 30px rgba(91,74,255,0.35);
+    display: inline-block;
   }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(91,74,255,0.45); }
   .btn-secondary {
@@ -180,12 +286,12 @@
     font-weight: 500;
     text-decoration: none;
     display: flex; align-items: center; gap: 0.5rem;
-    transition: gap 0.2s;
+    transition: gap 0.2s, color 0.35s;
   }
   .btn-secondary:hover { gap: 0.8rem; }
   .btn-secondary::after { content: '→'; }
 
-  /* Floating shapes */
+  /* Floating bg shapes */
   .shape {
     position: absolute; border-radius: 50%;
     pointer-events: none; z-index: 0;
@@ -198,7 +304,7 @@
   }
   .shape-2 {
     width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(0,200,150,0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0,200,150,0.07) 0%, transparent 70%);
     bottom: -50px; left: 30%;
     animation-delay: -3s;
   }
@@ -207,23 +313,31 @@
     50% { transform: translateY(-20px); }
   }
 
-  /* Marquee */
+  /* ===== MARQUEE ===== */
   .marquee-section {
     background: var(--ink);
     padding: 1.2rem 0;
     overflow: hidden;
     display: flex;
+    transition: background 0.35s;
+  }
+  [data-theme="dark"] .marquee-section {
+    background: #f9f9fa;
+  }
+  [data-theme="dark"] .marquee-item {
+    color: #353333;
   }
   .marquee-track {
     display: flex; gap: 3rem;
-    animation: marquee 20s linear infinite;
+    animation: marquee 22s linear infinite;
     white-space: nowrap;
+    flex-shrink: 0;
   }
   .marquee-item {
     font-family: 'Clash Display', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 500;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255, 255, 255, 0.817);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     display: flex; align-items: center; gap: 1rem;
@@ -234,9 +348,8 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* Services */
+  /* ===== SECTIONS ===== */
   section { padding: 6rem 3rem; }
-
   .section-label {
     font-size: 0.75rem;
     font-weight: 500;
@@ -252,32 +365,144 @@
     letter-spacing: -0.03em;
     line-height: 1.1;
     margin-bottom: 1rem;
+    transition: color 0.35s;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #0052d4, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Padding to avoid descender/italic clipping on mobile */
+    padding: 0.1em 0.1em 0.2em 0;
+    display: inline-block;
+    line-height: 1.2;
+  }
+  [data-theme="dark"] .gradient-text {
+    background: linear-gradient(135deg, #60a5fa, #c084fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
+/* ===== SERVICES ===== */
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin-top: 3.5rem;
   }
+  
   .service-card {
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     border-radius: var(--radius);
     padding: 2rem;
-    border: 1px solid rgba(0,0,0,0.06);
-    transition: transform 0.25s, box-shadow 0.25s;
-    position: relative; overflow: hidden;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-card);
+    position: relative; 
+    
+    /* FIX 1: Removed box-shadow and border-color from transition to prevent Repaint Thrashing! */
+    /* FIX 2: Added Hardware Acceleration to the card */
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.35s ease, border-color 0.35s ease;
+    transform: translateZ(0);
+    will-change: transform;
+    
+    /* Removed 'overflow: hidden' so our new shadow pseudo-element doesn't get cut off */
   }
+
+  /* Ensure all text and icons stay above our new shadow layer */
+  .service-card > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* The top accent line (full height invisible box with border to preserve true border-radius) */
   .service-card::before {
     content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--card-accent, var(--accent));
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.3s ease;
+    position: absolute; 
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    border-top: 3px solid var(--card-accent, var(--accent));
+    border-radius: var(--radius);
+    clip-path: inset(0 100% 0 0 round var(--radius));
+    transition: clip-path 0.35s ease;
+    z-index: 3;
+    pointer-events: none;
   }
-  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
-  .service-card:hover::before { transform: scaleX(1); }
+  
+  /* FIX 3: The Opacity Hack Layer (Pre-renders the shadow and border) */
+  .service-card::after {
+    content: '';
+    position: absolute;
+    inset: 0; /* -1px covers the original border perfectly */
+    border-radius: var(--radius);
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.35s ease;
+    z-index: 1; /* Sits directly on top of the glass background, but behind the text */
+    pointer-events: none;
+    
+    /* Light Mode: Default Drop-shadow and Border */
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Dark Mode: Vibrant Glowing Border and Inner-Glow */
+  [data-theme="dark"] .service-card::after {
+    box-shadow: 0 8px 32px color-mix(in srgb, var(--card-accent, var(--accent)) 25%, transparent), inset 0 0 20px color-mix(in srgb, var(--card-accent, var(--accent)) 10%, transparent);
+  }
+  
+  /* Animate ONLY transform and opacity! */
+  @media (hover: hover) and (pointer: fine) {
+
+    .service-card:hover { 
+      transform: translateY(-5px) translateZ(0); 
+      border-color: rgba(0, 0, 0, 0.05); /* Light mode hover border */
+    }
+
+    [data-theme="dark"] .service-card:hover {
+    border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 50%, transparent);
+  }
+
+    .service-card:hover::before { 
+      clip-path: inset(0 0 0 0 round var(--radius)); 
+    }
+
+    /* Smoothly fade in the shadow layer using the GPU (0 lag) */
+    .service-card:hover::after {
+      opacity: 1;
+    }
+  }
+
+/* ===== MOBILE TOUCH / CLICK FEEDBACK ===== */
+  
+  /* 1. The physical 'press' effect (Only happens while finger is physically pushing the screen) */
+  .service-card:active { 
+    transform: scale(0.98) translateZ(0); 
+  }
+  .service-card:active .service-icon {
+    transform: scale(1.05); /* Icon bumps down with the card */
+  }
+
+  /* 2. The visual glow & border (Stays on via JS class until another card is tapped) */
+  .service-card:active,
+  .service-card.mobile-selected {
+    border-color: rgba(0, 0, 0, 0.05); /* Light mode */
+  }
+
+  [data-theme="dark"] .service-card:active,
+  [data-theme="dark"] .service-card.mobile-selected {
+    border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 50%, transparent); /* Dark mode */
+  }
+
+  .service-card:active::before,
+  .service-card.mobile-selected::before { 
+    clip-path: inset(0 0 0 0 round var(--radius)); /* Sweeping top line */
+  }
+
+  .service-card:active::after,
+  .service-card.mobile-selected::after {
+    opacity: 1; /* The glowing shadow */
+    transition: opacity 0.35s ease; /* Smooth fade out when deselected */
+  }
 
   .service-icon {
     width: 52px; height: 52px;
@@ -285,20 +510,40 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    background: var(--icon-bg, rgba(91,74,255,0.08));
+    /* Light Mode: 5% background tint and slightly darker shadow */
+    background: color-mix(in srgb, var(--card-accent, var(--accent)) 5%, transparent);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: background 0.35s, border-color 0.35s, transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  /* Dark Mode: 10% background tint to look illuminated */
+  [data-theme="dark"] .service-icon {
+    background: color-mix(in srgb, var(--card-accent, var(--accent)) 10%, transparent);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Mobile Fix: Only scale up on hover if the device has a fine pointer */
+  @media (hover: hover) and (pointer: fine) {
+    .service-card:hover .service-icon {
+      transform: scale(1.1);
+    }
   }
   .service-card h3 {
     font-family: 'Syne', sans-serif;
-    font-size: 1.15rem;
+    font-size: 1.12rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
     letter-spacing: -0.01em;
+    color: var(--ink);
+    transition: color 0.35s;
   }
   .service-card p {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--ink-soft);
     line-height: 1.75;
     font-weight: 300;
+    transition: color 0.35s;
   }
   .service-link {
     display: inline-flex; align-items: center; gap: 0.4rem;
@@ -311,32 +556,8 @@
   }
   .service-link:hover { gap: 0.7rem; }
 
-  /* Stats strip */
-  .stats {
-    background: var(--accent);
-    padding: 4rem 3rem;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-  }
-  .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Clash Display', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: -0.04em;
-    display: block;
-  }
-  .stat-label {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.65);
-    font-weight: 400;
-    margin-top: 0.25rem;
-  }
-
-  /* How we work */
-  .process { background: var(--white); }
+  /* ===== PROCESS ===== */
+  .process { background: transparent; transition: background 0.35s; }
   .process-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -344,12 +565,68 @@
     align-items: center;
     margin-top: 3rem;
   }
-  .process-steps { display: flex; flex-direction: column; gap: 0; }
+  .process-steps { 
+    display: flex; flex-direction: column; gap: 0; 
+    position: relative;
+    padding-left: 2.5rem; /* Make room for the timeline */
+  }
+
+  /* The vertical timeline line */
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    bottom: 2rem;
+    left: 8px; /* Position line left of the steps */
+    width: 2px;
+    background: color-mix(in srgb, var(--border) 60%, transparent);
+    z-index: 1;
+  }
+
   .process-step {
     display: flex; gap: 1.5rem; align-items: flex-start;
     padding: 1.75rem 0;
-    border-bottom: 1px solid var(--surface-2);
+    border-bottom: 1px solid var(--border);
     position: relative;
+    /* Added transitions for Focus Timeline effect */
+    transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease, border-color 0.35s;
+  }
+
+  /* Glowing dot/bullet for each step */
+  .process-step::before {
+    content: '';
+    position: absolute;
+    left: calc(-2.5rem + 4px); /* Center 10px dot exactly over the 2px line at left: 8px */
+    top: 2.1rem; /* Align roughly with the top text */
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--surface-3, var(--border));
+    z-index: 2;
+    transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+  }
+
+  /* FOCUS TIMELINE EFFECT USING :has() */
+  /* Fallback for browsers that don't support :has - though modern edge is fine */
+  .process-steps:hover .process-step {
+    opacity: 0.4;
+    filter: blur(1px);
+  }
+  
+  .process-steps .process-step:hover {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateX(5px);
+  }
+
+  .process-step:hover::before {
+    background: var(--accent);
+    box-shadow: 0 0 16px var(--accent);
+    transform: scale(1.3);
+  }
+
+  .process-step:hover .step-content h4 {
+    color: var(--accent);
   }
   .step-num {
     font-family: 'Clash Display', sans-serif;
@@ -359,115 +636,67 @@
     min-width: 32px;
     letter-spacing: 0.05em;
     padding-top: 0.1rem;
+    transition: color 0.35s;
   }
   .step-content h4 {
     font-family: 'Syne', sans-serif;
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 0.4rem;
+    color: var(--ink);
+    transition: color 0.35s;
   }
   .step-content p {
     font-size: 0.88rem;
     color: var(--ink-soft);
     line-height: 1.7;
     font-weight: 300;
+    transition: color 0.35s;
   }
-
   .process-visual {
-    background: var(--surface);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
     border-radius: 24px;
     padding: 2.5rem;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-glass);
+    transition: background 0.35s, border-color 0.35s;
   }
-  .code-block {
-    background: var(--ink);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    font-family: 'Courier New', monospace;
-    font-size: 0.78rem;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.7);
-  }
-  .code-block .kw { color: #a78bff; }
-  .code-block .str { color: #67e8c4; }
-  .code-block .fn { color: #fbbf24; }
-  .code-block .cm { color: rgba(255,255,255,0.35); }
-
-  /* Testimonials */
-  .testimonials { background: var(--surface); }
-  .testi-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3.5rem;
-  }
-  .testi-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 2rem;
-    border: 1px solid rgba(0,0,0,0.06);
-  }
-  .stars { color: #fbbf24; margin-bottom: 1rem; font-size: 0.85rem; }
-  .testi-text {
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    line-height: 1.8;
-    font-style: italic;
-    font-weight: 300;
-    margin-bottom: 1.5rem;
-  }
-  .testi-author {
-    display: flex; align-items: center; gap: 0.75rem;
-  }
-  .avatar {
-    width: 38px; height: 38px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; font-weight: 700;
-    color: var(--white);
-  }
-  .testi-name { font-weight: 500; font-size: 0.88rem; }
-  .testi-role { font-size: 0.78rem; color: var(--ink-mute); }
-
-  /* CTA */
-  .cta-section {
-    background: var(--ink);
-    padding: 7rem 3rem;
-    text-align: center;
-    position: relative; overflow: hidden;
-  }
-  .cta-section::before {
-    content: 'EZYIX';
-    font-family: 'Clash Display', sans-serif;
-    font-size: 22vw;
-    font-weight: 700;
-    color: rgba(255,255,255,0.02);
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    letter-spacing: -0.04em;
-    white-space: nowrap;
-  }
-  .cta-section h2 { color: var(--white); margin-bottom: 1rem; }
-  .cta-section p { color: rgba(255,255,255,0.5); font-size: 1rem; margin-bottom: 2.5rem; font-weight: 300; max-width: 500px; margin-left: auto; margin-right: auto; }
-  .cta-section .btn-primary { background: var(--accent); margin-right: 1rem; }
-  .btn-ghost {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.7);
-    padding: 0.9rem 2rem;
-    border-radius: 100px;
-    font-size: 0.95rem;
+  .tech-tags { margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .tech-tag {
+    font-size: 0.75rem;
     font-weight: 500;
-    text-decoration: none;
-    transition: border-color 0.2s, color 0.2s;
-    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    /* Adding subtle border to simulate a gradient/glass premium feel */
+    border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
-  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
+  
+  /* Hover State */
+  @media (hover: hover) and (pointer: fine) {
+    .tech-tag:hover {
+      transform: translateY(-2px);
+      /* Use inherited inline currentColor blended strongly as drop-shadow */
+      box-shadow: 0 4px 12px color-mix(in srgb, currentColor 35%, transparent);
+      border-color: color-mix(in srgb, currentColor 45%, transparent);
+    }
+  }
 
-  /* Projects Section */
-  .projects { background: var(--white); }
+  /* Active/Tap State */
+  .tech-tag:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 2px 4px color-mix(in srgb, currentColor 20%, transparent);
+  }
+
+  /* ===== PROJECTS ===== */
+  .projects { background: transparent; transition: background 0.35s; }
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -475,169 +704,270 @@
     margin-top: 3.5rem;
   }
   .project-card {
-    background: var(--surface);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     border-radius: var(--radius);
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+    /* Removed overflow: hidden to allow the ::after shadow to escape the box */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.35s ease;
     position: relative;
-    border: 1px solid rgba(0,0,0,0.06);
+    border: 1px solid var(--glass-border);
     cursor: pointer;
+    box-shadow: var(--shadow-card);
+    transform: translateZ(0);
+    will-change: transform;
   }
-  .project-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
-  
-  .project-image {
-    width: 100%;
-    height: 280px;
-    overflow: hidden;
-    position: relative;
+
+  /* The Opacity Hack Layer */
+  .project-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px; /* Cover the 1px border */
+    border-radius: var(--radius);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+    pointer-events: none;
+    
+    /* Light Mode: Sleek, diffuse black drop-shadow */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.08);
   }
-  .project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s;
+
+  /* Dark Mode: Glowing blue/purple drop-shadow */
+  [data-theme="dark"] .project-card::after {
+    box-shadow: 0 16px 40px color-mix(in srgb, var(--accent) 30%, transparent), 0 0 20px color-mix(in srgb, var(--accent) 15%, transparent);
   }
-  .project-card:hover .project-image img { transform: scale(1.05); }
-  
-  .project-info {
-    padding: 2rem;
+
+  @media (hover: hover) and (pointer: fine) {
+    .project-card:hover { 
+      transform: translateY(-8px) translateZ(0); 
+    }
+    .project-card:hover::after {
+      opacity: 1;
+    }
   }
+
+  .project-card:active {
+    transform: translateY(-2px) scale(0.98) translateZ(0);
+  }
+
+  .project-image { 
+    width: 100%; height: 280px; 
+    overflow: hidden; position: relative; 
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.1);
+    /* Manually round top corners since parent overflow:hidden is removed */
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+  }
+  .project-image img { 
+    width: 100%; height: 100%; object-fit: cover; 
+    filter: brightness(0.85);
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease; 
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .project-card:hover .project-image img { 
+      transform: scale(1.05);
+      filter: brightness(1);
+    }
+  }
+  .project-info { padding: 2rem; }
   .project-info h3 {
     font-family: 'Syne', sans-serif;
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    color: var(--ink);
+    transition: color 0.35s;
   }
   .project-desc {
     font-size: 0.9rem;
     color: var(--ink-soft);
     line-height: 1.6;
     margin-bottom: 1.5rem;
+    transition: color 0.35s;
   }
   .project-btn {
-    background: var(--accent);
-    color: var(--white);
+    /* Dark semi-transparent background (Glass Effect) */
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--ink);
     padding: 0.7rem 1.6rem;
-    border: none;
+    border: 1px solid var(--accent);
     border-radius: 100px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 500;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    /* Smooth transitions for all states including arrow */
+    transition: all 0.3s ease;
+    font-family: 'DM Sans', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
   }
-  .project-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(91,74,255,0.35); }
 
-  /* Modal */
-  .modal {
+  .project-btn .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .project-btn:hover { 
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 25px rgba(91,74,255,0.35); 
+  }
+
+  .project-btn:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  [data-theme="dark"] .project-btn {
+    color: #fff;
+  }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(5px);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(8px);
     z-index: 1000;
-    animation: fadeIn 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
   }
-  .modal.active { display: flex; align-items: center; justify-content: center; }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  .modal-overlay.active { 
+    display: flex; 
+    animation: fadeOverlayIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
   }
-  
+  @keyframes fadeOverlayIn { from { opacity: 0; } to { opacity: 1; } }
   .modal-content {
-    background: var(--white);
+    background: var(--card-bg);
     border-radius: var(--radius);
     max-width: 700px;
-    width: 90%;
+    width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    animation: slideUp 0.3s ease;
-  }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    position: relative;
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    box-shadow: 0 15px 45px -10px color-mix(in srgb, var(--accent) 25%, transparent), 0 0 0 1px color-mix(in srgb, var(--accent) 5%, transparent);
+    animation: popModalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
   }
   
+  /* Custom Sleek Scrollbar */
+  .modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  .modal-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .modal-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15); /* Light Theme */
+    border-radius: 100px;
+  }
+  .modal-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+  }
+  [data-theme="dark"] .modal-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1); /* Dark Theme */
+  }
+  [data-theme="dark"] .modal-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  @keyframes popModalIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
   .modal-close {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
+    position: sticky;
+    top: 1rem;
+    float: right;
+    margin: 1rem 1rem 0 0;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    font-size: 1.1rem;
     cursor: pointer;
-    color: var(--ink-mute);
-    transition: color 0.2s;
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
     z-index: 10;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s, border-color 0.3s, color 0.3s;
   }
-  .modal-close:hover { color: var(--ink); }
-  
+  @media (hover: hover) and (pointer: fine) {
+    .modal-close:hover { 
+      background: var(--surface-3); 
+      color: var(--accent);
+      transform: scale(1.1) rotate(90deg); 
+      border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    }
+  }
   .modal-image {
     width: 100%;
-    height: 300px;
+    height: 280px;
     object-fit: cover;
-    border-radius: var(--radius) var(--radius) 0 0;
+    display: block;
   }
-  
-  .modal-body {
-    padding: 3rem;
-    position: relative;
-  }
-  
-  .modal-body h2 {
-    margin-bottom: 1.5rem;
-  }
-  
-  .modal-section {
-    margin-bottom: 2rem;
-  }
-  
+  .modal-body { padding: 2.5rem; }
+  .modal-body h2 { margin-bottom: 1.5rem; font-size: 1.8rem; }
+  .modal-section { margin-bottom: 2rem; }
   .modal-section h3 {
     font-family: 'Syne', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.75rem;
     color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.75rem;
+    transition: color 0.35s;
   }
-  
-  .features-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
+  .features-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
   .features-list li {
     font-size: 0.9rem;
     color: var(--ink-soft);
     padding-left: 1.5rem;
     position: relative;
+    line-height: 1.6;
+    transition: color 0.35s;
   }
-  
-  .features-list li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--accent-3);
-    font-weight: 700;
-  }
-  
+  .features-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent-3); font-weight: 700; }
   .modal-response {
-    background: var(--surface);
-    padding: 1.5rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.9rem;
+    position: relative;
+    background: color-mix(in srgb, var(--accent) 5%, transparent);
+    padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
     color: var(--ink-soft);
-    line-height: 1.7;
+    line-height: 1.8;
     font-style: italic;
+    border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+    box-shadow: inset 0 2px 10px color-mix(in srgb, var(--ink) 2%, transparent);
+    transition: background 0.35s, color 0.35s, border-color 0.35s;
+    overflow: hidden;
+    z-index: 1;
   }
-  
+  .modal-response::before {
+    content: '\201C'; /* Premium smart quote */
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 6rem;
+    color: var(--accent);
+    opacity: 0.08;
+    z-index: -1;
+    line-height: 1;
+  }
   .modal-link {
-    display: inline-block;
+    display: inline-flex; align-items: center; gap: 0.4rem;
     background: var(--accent);
-    color: var(--white);
+    color: #fff;
     padding: 0.8rem 2rem;
     border-radius: 100px;
     text-decoration: none;
@@ -647,60 +977,467 @@
   }
   .modal-link:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(91,74,255,0.35); }
 
-  /* Footer */
+  /* ===== CONTACT FORM ===== */
+  .contact-section {
+    background: transparent;
+    padding: 6rem 3rem;
+    transition: background 0.35s;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: start;
+    max-width: 1100px;
+  }
+  .contact-left h2 { margin-bottom: 1rem; }
+  .contact-left p {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    transition: color 0.35s;
+  }
+.contact-detail {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.85rem;
+  }
+
+  /* Target the span so the text can slide */
+  .contact-detail span {
+    display: inline-block; /* Required for translateX to work */
+    transition: transform 0.3s ease, color 0.35s;
+  }
+
+  .contact-detail-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    transition: border-color 0.35s, background 0.35s, transform 0.3s ease, filter 0.3s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .contact-detail:hover .contact-detail-icon {
+      transform: scale(1.15);
+      filter: brightness(1.2); 
+    }
+
+    .contact-detail:hover span {
+      transform: translateX(4px);
+    }
+  }
+  .contact-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .contact-link.email-link:hover {
+    color: #5b4aff;
+  }
+  .contact-link.ig-link:hover {
+    color: #e1306c;
+  }
+  .contact-form {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+    transition: background 0.35s, border-color 0.35s;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+  .form-group label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.35s;
+  }
+  /* Base State (Merged with Copilot's logic + Your Variables) */
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink);
+    outline: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    width: 100%;
+  }
+
+  /* Hover State - Light Mode */
+  .form-group input:hover,
+  .form-group select:hover,
+  .form-group textarea:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.15);
+  }
+
+  /* Focus State (The Smart Glow) - Light Mode */
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    background-color: var(--card-bg);
+    border-color: var(--accent);
+    /* Copilot's glow ring, using your accent variable */
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent);
+  }
+
+  /* === DARK MODE OVERRIDES === */
+  [data-theme="dark"] .form-group input,
+  [data-theme="dark"] .form-group select,
+  [data-theme="dark"] .form-group textarea {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  [data-theme="dark"] .form-group input:hover,
+  [data-theme="dark"] .form-group select:hover,
+  [data-theme="dark"] .form-group textarea:hover {
+    background-color: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  [data-theme="dark"] .form-group input:focus,
+  [data-theme="dark"] .form-group select:focus,
+  [data-theme="dark"] .form-group textarea:focus {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: var(--accent);
+    /* A slightly brighter glow for dark mode */
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+  .form-group select { appearance: none; cursor: pointer; }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--ink-mute); opacity: 0.4; }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(91,74,255,0.3);
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.25s ease;
+  }
+
+  /* Target just the arrow */
+  .btn-submit .arrow {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+
+  /* Hover State */
+  @media (hover: hover) and (pointer: fine) {
+    .btn-submit:hover { 
+      transform: translateY(-2px); 
+      filter: brightness(1.08);
+      box-shadow: 0 12px 40px rgba(91,74,255,0.5); 
+    }
+    .btn-submit:hover .arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  /* Active State */
+  .btn-submit:active {
+    transform: scale(0.97);
+    box-shadow: 0 4px 15px rgba(91,74,255,0.4);
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    color: var(--accent-3);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .form-success .success-icon { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+
+  /* ===== CTA SECTION ===== */
+  .cta-section {
+    background: var(--ink);
+    padding: 7rem 3rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+    transition: background 0.35s;
+  }
+  /* 1. Add the new keyframes for the drifting effect */
+  @keyframes ambientDrift {
+    0% { transform: translate(-53%, -50%); } /* Slightly reduced to -53% for a smoother, tighter drift */
+    100% { transform: translate(-47%, -50%); }
+  }
+
+  .cta-bg-text {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 22vw;
+    font-weight: 700;
+    color: rgba(255,255,255,0.025);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%); /* Fallback center */
+    pointer-events: none;
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+    user-select: none;
+    animation: ambientDrift 20s ease-in-out infinite alternate;
+  }
+  .cta-section h2 { color: #fff; margin-bottom: 1rem; }
+  .cta-section .cta-label { color: rgba(255,255,255,0.38); }
+  .cta-section p { color: rgba(255,255,255,0.5); font-size: 1rem; margin-bottom: 2.5rem; font-weight: 300; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.22);
+    color: rgba(255,255,255,0.7);
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+/* ===== FOOTER ===== */
   footer {
     background: var(--ink);
-    border-top: 1px solid rgba(255,255,255,0.06);
+    position: relative;
     padding: 3rem;
     display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.35s;
   }
-  footer .logo-foot {
+
+  /* The Fading Edge Line */
+  footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  }
+
+  /* Dark Mode (Light Footer): Fading purple accent line */
+  [data-theme="dark"] footer::before { 
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 40%, transparent), transparent); 
+  }
+
+  .logo-foot {
     font-family: 'Clash Display', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
-    color: var(--white);
+    color: #fff;
     letter-spacing: -0.03em;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    text-decoration: none;
   }
-  footer .logo-foot img {
-    height: 40px;
-    width: auto;
+  .logo-foot img { height: 38px; width: auto; }
+  .logo-foot span { color: var(--accent); }
+  
+  .foot-copy { 
+    font-size: 0.82rem; 
+    color: rgba(255,255,255,0.45); 
+    transition: transform 0.3s ease, color 0.3s ease;
   }
-  footer .logo-foot span { color: var(--accent); }
-  .foot-copy { font-size: 0.82rem; color: rgba(255,255,255,0.3); }
-  .foot-links { display: flex; gap: 2rem; }
-  .foot-links a { color: rgba(255,255,255,0.45); font-size: 0.85rem; text-decoration: none; transition: color 0.2s; }
-  .foot-links a:hover { color: var(--white); }
 
-  /* Animations */
+  /* Dark Mode (Light Footer): Soft dark grey so it's visible by default */
+  [data-theme="dark"] .foot-copy {
+    color: rgba(0, 0, 0, 0.45); 
+  }
+
+  /* Footer Hover Interactions */
+  @media (hover: hover) and (pointer: fine) {
+    .logo-foot:hover {
+      transform: scale(1.03);
+      filter: drop-shadow(0 4px 12px rgba(91,74,255,0.3));
+    }
+    .foot-copy:hover {
+      transform: translateY(-2px);
+      color:#ffffff;
+    }
+    [data-theme="dark"] .foot-copy:hover {
+      color: #111111;
+    }
+  }
+  /* ===== DARK MODE INVERTED SECTIONS ===== */
+  [data-theme="dark"] .cta-section h2,
+  [data-theme="dark"] .cta-section p,
+  [data-theme="dark"] .logo-foot,
+  [data-theme="dark"] .cta-section .cta-label { color: rgba(0,0,0,0.45); }
+  [data-theme="dark"] .cta-bg-text { color: rgba(0,0,0,0.04); }
+  [data-theme="dark"] .cta-section .btn-ghost { border-color: rgba(0,0,0,0.22); color: rgba(0,0,0,0.7); }
+  [data-theme="dark"] .cta-section .btn-ghost:hover { border-color: rgba(0,0,0,0.5); color: #000; }
+
+  /* ===== ANIMATIONS ===== */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
   .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* Responsive */
+  /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
+    .hamburger { display: flex; }
     section { padding: 4rem 1.5rem; }
+    .contact-section { padding: 4rem 1.5rem; }
     .hero { padding: 8rem 1.5rem 4rem; }
     .services-grid { grid-template-columns: 1fr; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .process-grid { grid-template-columns: 1fr; }
-    .testi-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .process-visual { display: none; }
     .projects-grid { grid-template-columns: 1fr; }
-    .modal-content { width: 95%; }
-    .modal-body { padding: 2rem; }
-    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-    .foot-links { flex-wrap: wrap; justify-content: center; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .cta-section { padding: 5rem 1.5rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
   }
+  @media (max-width: 480px) {
+    h1 { font-size: 2.8rem; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+    .cta-btns { flex-direction: column; align-items: center; }
+  }
+  /* ===== EZYIX CODE TERMINAL ISOLATED COMPONENT ===== */
+  .ezyix-code-terminal-wrapper {
+    /* Safe default to Light Mode if no parent class is present */
+    --ezyix-code-bg: rgba(255, 255, 255, 0.5);
+    --ezyix-code-border: rgba(255, 255, 255, 0.8);
+    --ezyix-code-shadow: 0 16px 40px rgba(91, 74, 255, 0.15); /* Accent drop-shadow */
+    --ezyix-code-text: #2d3748;
+    
+    /* Syntax Highlighting Colors (Light Mode Defaults) */
+    --ezyix-token-comment: #008000;
+    --ezyix-token-keyword: #0000ff;
+    --ezyix-token-variable: #0070c1;
+    --ezyix-token-operator: #333333;
+    --ezyix-token-property: #0451a5;
+    --ezyix-token-string: #a31515;
+    --ezyix-token-func: #795e26;
+    --ezyix-token-punct: #333333;
+
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    background: var(--ezyix-code-bg);
+    border: 1px solid var(--ezyix-code-border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 4rem 0 0 0; /* Add top spacing in Hero */
+    width: 100%;
+    max-width: 600px;
+    box-shadow: var(--ezyix-code-shadow);
+    transition: background 0.4s ease, border 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+
+  /* Dark Mode Overrides (supports both the requested class and the existing data-theme) */
+  .dark-mode .ezyix-code-terminal-wrapper,
+  [data-theme="dark"] .ezyix-code-terminal-wrapper {
+    --ezyix-code-bg: rgba(15, 22, 36, 0.55);
+    --ezyix-code-border: rgba(255, 255, 255, 0.12); /* Slightly lighter than the dark bg */
+    --ezyix-code-shadow: 0 16px 40px rgba(139, 92, 246, 0.15); /* Purple accent drop-shadow */
+    --ezyix-code-text: #f8fafc;
+
+    /* Syntax Highlighting Colors (Dark Mode) */
+    --ezyix-token-comment: #6a9955;
+    --ezyix-token-keyword: #569cd6;
+    --ezyix-token-variable: #9cdcfe;
+    --ezyix-token-operator: #d4d4d4;
+    --ezyix-token-property: #9cdcfe;
+    --ezyix-token-string: #ce9178;
+    --ezyix-token-func: #dcdcaa;
+    --ezyix-token-punct: #d4d4d4;
+  }
+
+  /* Light Mode Overrides (Explicit) */
+  .light-mode .ezyix-code-terminal-wrapper,
+  [data-theme="light"] .ezyix-code-terminal-wrapper {
+    --ezyix-code-bg: rgba(255, 255, 255, 0.5);
+    --ezyix-code-border: rgba(255, 255, 255, 0.8); /* Noticeably lighter than the bg */
+    --ezyix-code-shadow: 0 16px 40px rgba(91, 74, 255, 0.15); /* Blue/Purple accent drop-shadow */
+    --ezyix-code-text: #2d3748;
+  }
+
+  /* Terminal Header Dots */
+  .ezyix-code-terminal-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .ezyix-code-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .ezyix-code-dot-red { 
+    background-color: #ff5f56; 
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.4), 0 0 8px rgba(255, 95, 86, 0.6); 
+  }
+  .ezyix-code-dot-yellow { 
+    background-color: #ffbd2e; 
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.4), 0 0 8px rgba(255, 189, 46, 0.6); 
+  }
+  .ezyix-code-dot-green { 
+    background-color: #27c93f; 
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.4), 0 0 8px rgba(39, 201, 63, 0.6); 
+  }
+
+  /* Code Typography */
+  .ezyix-code-terminal-body {
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', Courier, monospace;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ezyix-code-text);
+    white-space: pre-wrap;
+    min-height: 250px;
+    text-align: left;
+  }
+
+  /* Syntax Highlighting Classes */
+  .ezyix-code-comment { color: var(--ezyix-token-comment); }
+  .ezyix-code-keyword { color: var(--ezyix-token-keyword); }
+  .ezyix-code-variable { color: var(--ezyix-token-variable); }
+  .ezyix-code-operator { color: var(--ezyix-token-operator); }
+  .ezyix-code-property { color: var(--ezyix-token-property); }
+  .ezyix-code-string { color: var(--ezyix-token-string); }
+  .ezyix-code-function { color: var(--ezyix-token-func); }
+  .ezyix-code-punctuation { color: var(--ezyix-token-punct); }
 </style>
 </head>
 <body>
@@ -708,22 +1445,38 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMobileMenu()">Services</a>
+  <a href="#process" onclick="closeMobileMenu()">Process</a>
+  <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+  <a href="#contact" class="mobile-cta" onclick="closeMobileMenu()">Get a Quote</a>
+</div>
+
 <!-- Nav -->
 <nav>
-  <a href="#" class="nav-logo"><img src="images/logo.png" alt="Ezyix Logo" class="nav-logo-img"> <span>ezyix</span></a>
+  <a href="#" class="nav-logo">
+    <img src="images/logo.png" alt="Ezyix Logo" class="nav-logo-img" onerror="this.style.display='none'">
+    <span>ezyix</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#process">How We Work</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
   </ul>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle theme">🌙</button>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
   <div class="shape shape-1"></div>
   <div class="shape shape-2"></div>
-
   <div class="hero-tag">Available for new projects</div>
   <h1>
     We build<br>
@@ -741,7 +1494,7 @@
 
 <!-- Marquee -->
 <div class="marquee-section">
-  <div class="marquee-track">
+  <div class="marquee-track" aria-hidden="true">
     <span class="marquee-item">Website Design</span>
     <span class="marquee-item">Mobile Apps</span>
     <span class="marquee-item">E-Commerce</span>
@@ -763,74 +1516,59 @@
 <section id="services">
   <div class="reveal">
     <div class="section-label">What we do</div>
-    <h2>Services built<br>for the modern web</h2>
+    <h2>Services built<br>for the <span class="gradient-text">modern web</span></h2>
   </div>
   <div class="services-grid">
-
-    <div class="service-card reveal" style="--card-accent:#5b4aff; --icon-bg:rgba(91,74,255,0.08);">
-      <div class="service-icon">🌐</div>
+    <div class="service-card reveal" style="--card-accent:#5b4aff;--icon-bg:rgba(91,74,255,0.08);">
+      <div class="service-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5b4aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+      </div>
       <h3>Website Design & Development</h3>
       <p>From landing pages to full-scale web platforms — we design and build fast, beautiful websites tailored to your brand and goals.</p>
-      <a href="#contact" class="service-link">Get started</a>
-    </div>
 
-    <div class="service-card reveal" style="--card-accent:#ff5b4a; --icon-bg:rgba(255,91,74,0.08);">
-      <div class="service-icon">📱</div>
+    </div>
+    <div class="service-card reveal" style="--card-accent:#ff5b4a;--icon-bg:rgba(255,91,74,0.08);">
+      <div class="service-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff5b4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+      </div>
       <h3>Mobile App Development</h3>
       <p>iOS and Android apps built with React Native or Flutter. Smooth, intuitive, and performance-optimized for real-world users.</p>
-      <a href="#contact" class="service-link">Get started</a>
-    </div>
 
-    <div class="service-card reveal" style="--card-accent:#00c896; --icon-bg:rgba(0,200,150,0.08);">
-      <div class="service-icon">🛒</div>
+    </div>
+    <div class="service-card reveal" style="--card-accent:#00c896;--icon-bg:rgba(0,200,150,0.08);">
+      <div class="service-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00c896" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      </div>
       <h3>E-Commerce Solutions</h3>
       <p>Shopify, WooCommerce, or custom-built stores. We handle everything from product listings to checkout optimization and payment integration.</p>
-      <a href="#contact" class="service-link">Get started</a>
-    </div>
 
-    <div class="service-card reveal" style="--card-accent:#f59e0b; --icon-bg:rgba(245,158,11,0.08);">
-      <div class="service-icon">🎨</div>
+    </div>
+    <div class="service-card reveal" style="--card-accent:#f59e0b;--icon-bg:rgba(245,158,11,0.08);">
+      <div class="service-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+      </div>
       <h3>UI/UX Design</h3>
       <p>User research, wireframing, and high-fidelity prototypes. Interfaces that people love to use — not just look at.</p>
-      <a href="#contact" class="service-link">Get started</a>
-    </div>
 
-    <div class="service-card reveal" style="--card-accent:#8b5cf6; --icon-bg:rgba(139,92,246,0.08);">
-      <div class="service-icon">⚙️</div>
+    </div>
+    <div class="service-card reveal" style="--card-accent:#8b5cf6;--icon-bg:rgba(139,92,246,0.08);">
+      <div class="service-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><path d="M13 8l2 2-2 2"></path></svg>
+      </div>
       <h3>Custom Software Development</h3>
       <p>APIs, dashboards, admin panels, and internal tools. We build software that solves your specific business problems.</p>
-      <a href="#contact" class="service-link">Get started</a>
-    </div>
 
-    <div class="service-card reveal" style="--card-accent:#06b6d4; --icon-bg:rgba(6,182,212,0.08);">
-      <div class="service-icon">🚀</div>
+    </div>
+    <div class="service-card reveal" style="--card-accent:#06b6d4;--icon-bg:rgba(6,182,212,0.08);">
+      <div class="service-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+      </div>
       <h3>SEO & Performance</h3>
       <p>Speed optimization, Core Web Vitals, and search engine visibility. We make sure your users — and Google — can find you.</p>
-      <a href="#contact" class="service-link">Get started</a>
-    </div>
 
+    </div>
   </div>
 </section>
-
-<!-- Stats
-<div class="stats">
-  <div class="stat reveal">
-    <span class="stat-num">120+</span>
-    <div class="stat-label">Projects delivered</div>
-  </div>
-  <div class="stat reveal">
-    <span class="stat-num">50+</span>
-    <div class="stat-label">Happy clients</div>
-  </div>
-  <div class="stat reveal">
-    <span class="stat-num">5★</span>
-    <div class="stat-label">Average rating</div>
-  </div>
-  <div class="stat reveal">
-    <span class="stat-num">3yrs</span>
-    <div class="stat-label">In business</div>
-  </div>
-</div> -->
 
 <!-- Process -->
 <section id="process" class="process">
@@ -870,27 +1608,24 @@
       </div>
     </div>
     <div class="process-visual reveal">
-      <div class="code-block">
-        <div><span class="cm">// ezyix project config</span></div>
-        <div><span class="kw">const</span> <span class="fn">project</span> = {</div>
-        <div>&nbsp;&nbsp;client: <span class="str">"Your Business"</span>,</div>
-        <div>&nbsp;&nbsp;type: <span class="str">"ecommerce"</span>,</div>
-        <div>&nbsp;&nbsp;stack: [<span class="str">"React"</span>, <span class="str">"Node"</span>],</div>
-        <div>&nbsp;&nbsp;timeline: <span class="str">"4 weeks"</span>,</div>
-        <div>&nbsp;&nbsp;status: <span class="str">"✓ on track"</span></div>
-        <div>}</div>
-        <br>
-        <div><span class="cm">// milestone update</span></div>
-        <div><span class="fn">deploy</span>(<span class="fn">project</span>.<span class="str">launch</span>)</div>
-        <div>&nbsp;&nbsp;.<span class="fn">then</span>(() => <span class="str">"🚀 live!"</span>)</div>
+      
+      <!-- Ezyix Code Terminal Component (Live) -->
+      <div class="ezyix-code-terminal-wrapper" style="margin: 0; max-width: 100%;">
+        <div class="ezyix-code-terminal-header">
+          <span class="ezyix-code-dot ezyix-code-dot-red"></span>
+          <span class="ezyix-code-dot ezyix-code-dot-yellow"></span>
+          <span class="ezyix-code-dot ezyix-code-dot-green"></span>
+        </div>
+        <div class="ezyix-code-terminal-body" id="ezyix-code-typeit-container"></div>
       </div>
-      <div style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
-        <span style="background:rgba(91,74,255,0.1);color:var(--accent);font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">React</span>
-        <span style="background:rgba(0,200,150,0.1);color:#00a87a;font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">Node.js</span>
-        <span style="background:rgba(255,91,74,0.1);color:#d63f2e;font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">Flutter</span>
-        <span style="background:rgba(245,158,11,0.1);color:#b37a00;font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">Shopify</span>
-        <span style="background:rgba(6,182,212,0.1);color:#0891b2;font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">Next.js</span>
-        <span style="background:rgba(139,92,246,0.1);color:#7c3aed;font-size:0.75rem;font-weight:500;padding:0.35rem 0.85rem;border-radius:100px;">WordPress</span>
+
+      <div class="tech-tags">
+        <span class="tech-tag" style="background:rgba(91,74,255,0.12);color:#5b4aff;">React.js</span>
+        <span class="tech-tag" style="background:rgba(0,200,150,0.12);color:#00a87a;">Node.js</span>
+        <span class="tech-tag" style="background:rgba(255,91,74,0.12);color:#d63f2e;">Flutter</span>
+        <span class="tech-tag" style="background:rgba(245,158,11,0.12);color:#b37a00;">React-Native</span>
+        <span class="tech-tag" style="background:rgba(6,182,212,0.12);color:#0891b2;">Next.js</span>
+        <span class="tech-tag" style="background:rgba(139,92,246,0.12);color:#7c3aed;">Express.js</span>
       </div>
     </div>
   </div>
@@ -903,140 +1638,156 @@
     <h2>Latest Projects</h2>
   </div>
   <div class="projects-grid">
-    
     <div class="project-card reveal" onclick="openProjectModal('havi')">
       <div class="project-image">
-        <img src="images/Havi image.png" alt="Havi Perfumes">
+        <img src="images/Havi image.png" alt="Havi Perfumes" loading="lazy">
       </div>
       <div class="project-info">
         <h3>Havi Perfumes</h3>
         <p class="project-desc">A luxurious perfume brand website showcasing premium fragrances with elegant design and smooth user experience.</p>
-        <button class="project-btn" onclick="openProjectModal('havi')">Open Project</button>
+        <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
       </div>
     </div>
-
     <div class="project-card reveal" onclick="openProjectModal('thwaba')">
       <div class="project-image">
-        <img src="images/Thwab image.png" alt="Thwaba Perfumes">
+        <img src="images/Thwab image.png" alt="Thwaba Perfumes" loading="lazy">
       </div>
       <div class="project-info">
         <h3>Thwaba Perfumes</h3>
         <p class="project-desc">An Arabian luxury perfume collection website featuring curated scents with sophisticated UI and immersive experience.</p>
-        <button class="project-btn" onclick="openProjectModal('thwaba')">Open Project</button>
+        <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
       </div>
     </div>
-
   </div>
 </section>
 
 <!-- Project Modal -->
-<div id="projectModal" class="modal">
+<div id="projectModal" class="modal-overlay" role="dialog" aria-modal="true">
   <div class="modal-content">
-    <button class="modal-close" onclick="closeProjectModal()">✕</button>
-    <img id="modalImage" class="modal-image" src="" alt="Project">
+    <button class="modal-close" onclick="closeProjectModal()" aria-label="Close modal">✕</button>
+    <img id="modalImage" class="modal-image" src="" alt="Project screenshot">
     <div class="modal-body">
       <h2 id="modalTitle"></h2>
-      
       <div class="modal-section">
         <h3>Features</h3>
         <ul class="features-list" id="modalFeatures"></ul>
       </div>
-      
       <div class="modal-section">
         <h3>Client Response</h3>
         <div class="modal-response" id="modalResponse"></div>
       </div>
-      
       <div class="modal-section">
-        <a id="modalLink" class="modal-link" href="" target="_blank">Visit Live Project ↗</a>
+        <a id="modalLink" class="modal-link" href="" target="_blank" rel="noopener">Visit Live Project ↗</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Testimonials -->
-<section id="about" class="testimonials">
+<!-- Contact Form -->
+<section id="contact" class="contact-section">
   <div class="reveal">
-    <div class="section-label">Client love</div>
-    <h2>What our clients say</h2>
-  </div>
-  <div class="testi-grid">
-    <div class="testi-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">"Ezyix transformed our outdated website into a conversion machine. Sales went up 40% within the first month of launch."</p>
-      <div class="testi-author">
-        <div class="avatar" style="background:var(--accent);">AK</div>
-        <div>
-          <div class="testi-name">Arjun Kumar</div>
-          <div class="testi-role">Founder, ShopKart India</div>
+    <div class="section-label">Get in touch</div>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <h2>Let's build something great together.</h2>
+        <p>Tell us about your project and we'll get back to you within 24 hours with a free, no-pressure quote.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5b4aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </div>
+          <span><a href="mailto:ezyix.us@gmail.com" class="contact-link email-link">ezyix.us@gmail.com</a></span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </div>
+          <span><a href="https://www.instagram.com/ezyix.in?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="contact-link ig-link">@ezyix.in</a></span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <span>We respond within 24 hours</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          </div>
+          <span>Working with clients worldwide</span>
         </div>
       </div>
-    </div>
-    <div class="testi-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">"Fast turnaround, clean code, and incredible attention to design detail. Exactly what we needed for our mobile app launch."</p>
-      <div class="testi-author">
-        <div class="avatar" style="background:#ff5b4a;">SR</div>
-        <div>
-          <div class="testi-name">Sneha Rao</div>
-          <div class="testi-role">CTO, Finnova Tech</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">"Their e-commerce setup was seamless. The Shopify store they built handles 500+ daily orders without a single hiccup."</p>
-      <div class="testi-author">
-        <div class="avatar" style="background:#00c896;">MP</div>
-        <div>
-          <div class="testi-name">Mohammed Prathap</div>
-          <div class="testi-role">Owner, Trendzilla</div>
+      <div class="contact-form">
+        <form id="contactForm" onsubmit="handleFormSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" placeholder="John" required>
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" placeholder="Doe" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="john@company.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Project Details</label>
+            <textarea id="message" placeholder="Tell us about your project, goals, and any specific requirements..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Message <span class="arrow">&rarr;</span></button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <span class="success-icon">✅</span>
+          <strong>Message sent!</strong><br>
+          We'll be in touch within 24 hours.
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section id="contact" class="cta-section">
-  <div class="reveal">
-    <div class="section-label" style="color:rgba(255,255,255,0.4);">Ready to build?</div>
-    <h2>Let's make something<br>great together.</h2>
-    <p>Tell us about your project and we'll get back to you within 24 hours with a free quote.</p>
-    <div>
-      <a href="mailto:hello@ezyix.com" class="btn-primary">Email us</a>
-      <a href="https://wa.me/" class="btn-ghost">WhatsApp ↗</a>
+<!-- CTA Strip -->
+<section class="cta-section">
+  <span class="cta-bg-text" aria-hidden="true">EZYIX</span>
+  <div class="reveal" style="position:relative;z-index:1;">
+    <div class="section-label cta-label">Ready to build?</div>
+    <h2>Start your project today.</h2>
+    <p>No fluff, no vague timelines — just clean work delivered on time.</p>
+    <div class="cta-btns">
+      <a href="mailto:ezyix.us@gmail.com" class="btn-primary">Email us directly</a>
+      <a href="#contact" class="btn-ghost">Fill the form ↑</a>
     </div>
   </div>
 </section>
 
 <!-- Footer -->
 <footer>
-  <div class="logo-foot"><img src="images/logo.png" alt="Ezyix Logo"> <span>ezyix</span></div>
-  <div class="foot-links">
-    <a href="#services">Services</a>
-    <a href="#process">Process</a>
-    <a href="#projects">Projects</a>
-    <a href="mailto:hello@ezyix.com">Contact</a>
+  <div class="logo-foot">
+    <img src="images/logo.png" alt="Ezyix Logo" class="foot-logo-img" onerror="this.style.display='none'">
+    <span>ezyix</span>
   </div>
   <div class="foot-copy">© 2025 Ezyix. All rights reserved.</div>
 </footer>
 
 <script>
-  // Custom cursor
+  // ===== CUSTOM CURSOR =====
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0;
   document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
     setTimeout(() => {
-      ring.style.left = e.clientX + 'px';
-      ring.style.top = e.clientY + 'px';
+      ring.style.left = mouseX + 'px';
+      ring.style.top = mouseY + 'px';
     }, 80);
   });
-  document.querySelectorAll('a, button').forEach(el => {
+  document.querySelectorAll('a, button, .project-card').forEach(el => {
     el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      cursor.style.transform = 'translate(-50%,-50%) scale(2.2)';
       ring.style.opacity = '0';
     });
     el.addEventListener('mouseleave', () => {
@@ -1045,55 +1796,83 @@
     });
   });
 
-  // Scroll reveal
+  // ===== DARK/LIGHT MODE =====
+  const html = document.documentElement;
+  const themeBtn = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('ezyix-theme') || 'light';
+  setTheme(savedTheme);
+
+  function setTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    const sunIcon = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+    const moonIcon = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+    themeBtn.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+    
+    const logoImg = document.querySelector('.nav-logo-img');
+    if (logoImg) {
+      logoImg.src = theme === 'dark' ? 'images/logo1.png' : 'images/logo.png';
+    }
+    
+    // Sets the appropriate logo for the footer based on the theme
+    const footLogoImg = document.querySelector('.foot-logo-img');
+    if (footLogoImg) {
+      footLogoImg.src = theme === 'dark' ? 'images/logo.png' : 'images/logo1.png';
+    }
+    
+    localStorage.setItem('ezyix-theme', theme);
+  }
+  themeBtn.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  // Also respect OS preference on first visit
+  if (!localStorage.getItem('ezyix-theme')) {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark');
+  }
+
+  // ===== HAMBURGER / MOBILE MENU =====
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMobileMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeMobileMenu();
+      closeProjectModal();
+    }
+  });
+
+  // ===== SCROLL REVEAL =====
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.transitionDelay = (i * 0.05) + 's';
         entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Counter animation for stats
-  function animateCount(el, target, suffix) {
-    let start = 0;
-    const step = target / 60;
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) { start = target; clearInterval(timer); }
-      el.textContent = Math.floor(start) + suffix;
-    }, 25);
-  }
-  const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const nums = entry.target.querySelectorAll('.stat-num');
-        nums.forEach(n => {
-          const txt = n.textContent;
-          if (txt.includes('+')) animateCount(n, parseInt(txt), '+');
-          else if (txt.includes('★')) { /* static */ }
-          else if (txt.includes('yrs')) animateCount(n, 3, 'yrs');
-        });
-        statsObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
-  const statsEl = document.querySelector('.stats');
-  if (statsEl) statsObserver.observe(statsEl);
-
-  // Project Modal Data
+  // ===== PROJECT MODAL =====
   const projectsData = {
     havi: {
       title: 'Havi Perfumes',
       image: 'images/Havi image.png',
       features: [
-        'Elegant product showcase with high-resolution images',
+        'Elegant product showcase with high-resolution imagery',
         'Smooth navigation and intuitive user interface',
-        'Responsive design for all devices',
-        'Fast loading and optimized performance',
-        'Clean, modern aesthetic with luxury branding'
+        'Fully responsive design across all devices',
+        'Fast loading and performance-optimised',
+        'Clean, modern aesthetic aligned with luxury branding'
       ],
       response: '"The website exceeded our expectations. It perfectly captures the essence of our luxury brand and has significantly increased our customer engagement. The design is elegant and the user experience is seamless."',
       link: 'https://ezyix.github.io/Havi-perfumes/'
@@ -1106,44 +1885,247 @@
         'Interactive product filtering and search',
         'Immersive brand storytelling experience',
         'Mobile-first responsive design',
-        'Optimized for conversions and user engagement'
+        'Optimised for conversions and user engagement'
       ],
       response: '"Thwaba Perfumes team did an outstanding job bringing our vision to life. The website beautifully showcases our curated collection with an immersive and elegant design that resonates with our target audience."',
       link: 'https://ezyix.github.io/Thwaba-Perfumes/'
     }
   };
 
-  // Open Project Modal
-  function openProjectModal(projectId) {
-    const project = projectsData[projectId];
-    if (!project) return;
-
-    document.getElementById('modalTitle').textContent = project.title;
-    document.getElementById('modalImage').src = project.image;
-    document.getElementById('modalResponse').textContent = project.response;
-    document.getElementById('modalLink').href = project.link;
-
-    const featuresList = document.getElementById('modalFeatures');
-    featuresList.innerHTML = '';
-    project.features.forEach(feature => {
+  function openProjectModal(id) {
+    const p = projectsData[id];
+    if (!p) return;
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalImage').src = p.image;
+    document.getElementById('modalResponse').textContent = p.response;
+    document.getElementById('modalLink').href = p.link;
+    const list = document.getElementById('modalFeatures');
+    list.innerHTML = '';
+    p.features.forEach(f => {
       const li = document.createElement('li');
-      li.textContent = feature;
-      featuresList.appendChild(li);
+      li.textContent = f;
+      list.appendChild(li);
     });
-
     document.getElementById('projectModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
-
-  // Close Project Modal
   function closeProjectModal() {
     document.getElementById('projectModal').classList.remove('active');
+    document.body.style.overflow = '';
   }
+  document.getElementById('projectModal').addEventListener('click', e => {
+    if (e.target.id === 'projectModal') closeProjectModal();
+  });
 
-  // Close modal when clicking outside
-  document.getElementById('projectModal').addEventListener('click', (e) => {
-    if (e.target.id === 'projectModal') {
-      closeProjectModal();
+  // ===== CONTACT FORM =====
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('formSuccess');
+    const btn = form.querySelector('.btn-submit');
+    
+    // Gather form values
+    const fname = document.getElementById('fname').value;
+    const lname = document.getElementById('lname').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    // Send real email using FormSubmit AJAX API
+    fetch("https://formsubmit.co/ajax/ezyix.us@gmail.com", {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+          firstName: fname,
+          lastName: lname,
+          email: email,
+          message: message,
+          _subject: "New Project Inquiry from Ezyix Website!"
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      form.style.display = 'none';
+      success.style.display = 'block';
+    })
+    .catch(error => {
+      console.log(error);
+      btn.textContent = 'Error! Try Again.';
+      btn.disabled = false;
+      alert("Oops! There was a problem submitting your form.");
+    });
+  }
+</script>
+
+<!-- Ezyix Code Terminal Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new TypeIt("#ezyix-code-typeit-container", {
+      speed: 40,
+      html: true,
+      loop: true
+    })
+    // 1st Block: ezyix project config
+    .type('<span class="ezyix-code-comment">// ezyix project config</span><br>')
+    .type('<span class="ezyix-code-keyword">const</span> <span class="ezyix-code-variable">project</span> <span class="ezyix-code-operator">=</span> <span class="ezyix-code-punctuation">{</span><br>')
+    .type('  <span class="ezyix-code-property">client</span><span class="ezyix-code-punctuation">:</span> <span class="ezyix-code-string">"Your Business"</span><span class="ezyix-code-punctuation">,</span><br>')
+    .type('  <span class="ezyix-code-property">type</span><span class="ezyix-code-punctuation">:</span> <span class="ezyix-code-string">"ecommerce"</span><span class="ezyix-code-punctuation">,</span><br>')
+    .type('  <span class="ezyix-code-property">stack</span><span class="ezyix-code-punctuation">:</span> <span class="ezyix-code-punctuation">[</span><span class="ezyix-code-string">"React"</span><span class="ezyix-code-punctuation">,</span> <span class="ezyix-code-string">"Node"</span><span class="ezyix-code-punctuation">]</span><span class="ezyix-code-punctuation">,</span><br>')
+    .type('  <span class="ezyix-code-property">timeline</span><span class="ezyix-code-punctuation">:</span> <span class="ezyix-code-string">"4 weeks"</span><span class="ezyix-code-punctuation">,</span><br>')
+    .type('  <span class="ezyix-code-property">status</span><span class="ezyix-code-punctuation">:</span> <span class="ezyix-code-string">"✓ on track"</span><br>')
+    .type('<span class="ezyix-code-punctuation">}</span><br><br>')
+    .pause(800) // Brief pause before the next snippet
+    // 2nd Block: milestone update
+    .type('<span class="ezyix-code-comment">// milestone update</span><br>')
+    .type('<span class="ezyix-code-function">deploy</span><span class="ezyix-code-punctuation">(</span><span class="ezyix-code-variable">project</span><span class="ezyix-code-punctuation">.</span><span class="ezyix-code-property">launch</span><span class="ezyix-code-punctuation">)</span><br>')
+    .type('  <span class="ezyix-code-punctuation">.</span><span class="ezyix-code-function">then</span><span class="ezyix-code-punctuation">(</span><span class="ezyix-code-punctuation">(</span><span class="ezyix-code-punctuation">)</span> <span class="ezyix-code-keyword">=&gt;</span> <span class="ezyix-code-string">"🚀 live!"</span><span class="ezyix-code-punctuation">)</span>')
+    
+    // Animation Loops Rules
+    .pause(3000)   // wait 3 seconds
+    .empty()       // instantly delete/empty the code text
+    .pause(1000)   // pause 1 second before the loop restarts
+    .go();
+  });
+</script>
+
+<!-- ===== WEBGL FLUID (TECHWARE BLUE STYLE) ===== -->
+<script type="module">
+  // Import the library as an ES module natively in the browser
+  import webglFluid from 'https://esm.sh/webgl-fluid';
+
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    // 1. Create the canvas
+    const canvas = document.createElement('canvas');
+    canvas.id = 'fluidCanvas';
+    canvas.setAttribute('aria-hidden', 'true');
+    
+    // 2. Set inline styles
+    Object.assign(canvas.style, {
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      width: '100%',
+      height: '100%',
+      zIndex: '1',
+      pointerEvents: 'none' // Lets clicks pass through to buttons
+    });
+
+    // 3. Make hero the positioning parent and insert canvas
+    hero.style.position = 'relative';
+    hero.insertBefore(canvas, hero.firstChild);
+
+    // 4. Push ALL other hero children above the canvas so flex layout isn't disrupted
+    hero.querySelectorAll(':scope > *:not(canvas)').forEach(el => {
+      if (window.getComputedStyle(el).position !== 'absolute') {
+        el.style.position = 'relative';
+      }
+      el.style.zIndex = '2';
+    });
+
+    // 5. Initialize the WebGL Fluid Simulation
+    webglFluid(canvas, {
+      IMMEDIATE: false,           
+      TRIGGER: 'hover',           
+      COLORFUL: false,            // Force single/palette colors
+      // === TECHWARE LAB BLUE PALETTE ===
+      COLOR_PALETTE: ['#0033ff', '#0066ff', '#0099ff', '#0011cc', '#00008b'], 
+      DENSITY_DISSIPATION: 2.0,   
+      VELOCITY_DISSIPATION: 0.5,  
+      PRESSURE: 0.5,
+      CURL: 15,
+      SPLAT_RADIUS: 0.35,         
+      SPLAT_FORCE: 6000,
+      SHADING: true,
+      TRANSPARENT: true,          // Keeps your existing background visible!
+      BLOOM: true,
+      BLOOM_ITERATIONS: 8,
+      BLOOM_RESOLUTION: 256,
+      BLOOM_INTENSITY: 0.8,
+      BLOOM_THRESHOLD: 0.6,
+      SUNRAYS: true,
+      SUNRAYS_WEIGHT: 1.0,
+    });
+
+    // 6. === SYNTHETIC EVENT ROUTING (FIXED INFINITE LOOP) ===
+    const forwardEvent = (e) => {
+      // FIX: If this event was generated by our script, ignore it to prevent an infinite loop!
+      if (!e.isTrusted) return; 
+
+      const fakeEvent = new MouseEvent(e.type, {
+        clientX: e.clientX,
+        clientY: e.clientY,
+        bubbles: false, // FIX: Stop the event from bubbling back up to the hero
+        cancelable: true
+      });
+      canvas.dispatchEvent(fakeEvent);
+    };
+
+    ['mousemove', 'mousedown', 'mouseup'].forEach(evt => {
+      hero.addEventListener(evt, forwardEvent);
+    });
+
+    // Forward touch events for mobile
+    hero.addEventListener('touchmove', (e) => {
+      if (!e.isTrusted) return;
+      if (e.touches.length > 0) {
+        const fakeEvent = new MouseEvent('mousemove', {
+          clientX: e.touches[0].clientX,
+          clientY: e.touches[0].clientY,
+          bubbles: false
+        });
+        canvas.dispatchEvent(fakeEvent);
+      }
+    }, { passive: true });
+
+    // Auto-splat once on load so you immediately see it working
+    setTimeout(() => {
+      const rect = hero.getBoundingClientRect();
+      const fakeEvent = new MouseEvent('mousemove', {
+        clientX: rect.left + rect.width / 2,
+        clientY: rect.top + rect.height / 2,
+        bubbles: false
+      });
+      canvas.dispatchEvent(fakeEvent);
+    }, 800);
+    
+    const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) {
+      canvas.style.display = 'none'; // Pauses WebGL rendering
+    } else {
+      canvas.style.display = 'block'; // Resumes rendering
     }
+  });
+});
+observer.observe(hero);
+  }
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.service-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        // 1. Remove the glowing 'mobile-selected' class from ALL cards
+        cards.forEach(c => c.classList.remove('mobile-selected'));
+        
+        // 2. Add the glow strictly to the one you just tapped
+        card.classList.add('mobile-selected');
+      });
+    });
+
+    // Optional Pro-UX: If the user taps the empty background outside the cards, turn off all glows
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.service-card')) {
+        cards.forEach(c => c.classList.remove('mobile-selected'));
+      }
+    });
   });
 </script>
 </body>
