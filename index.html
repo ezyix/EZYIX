@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1799,7 +1799,7 @@
   // ===== DARK/LIGHT MODE =====
   const html = document.documentElement;
   const themeBtn = document.getElementById('themeToggle');
-  const savedTheme = localStorage.getItem('ezyix-theme') || 'light';
+  const savedTheme = localStorage.getItem('ezyix-theme') || 'dark';
   setTheme(savedTheme);
 
   function setTheme(theme) {
@@ -1825,11 +1825,6 @@
     const current = html.getAttribute('data-theme');
     setTheme(current === 'dark' ? 'light' : 'dark');
   });
-
-  // Also respect OS preference on first visit
-  if (!localStorage.getItem('ezyix-theme')) {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark');
-  }
 
   // ===== HAMBURGER / MOBILE MENU =====
   const hamburger = document.getElementById('hamburger');
@@ -1933,19 +1928,20 @@
     btn.textContent = 'Sending...';
     btn.disabled = true;
 
-    // Send real email using FormSubmit AJAX API
-    fetch("https://formsubmit.co/ajax/ezyix.us@gmail.com", {
+// Send real email using reliable Web3Forms API
+    fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+      headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
       },
       body: JSON.stringify({
-          firstName: fname,
-          lastName: lname,
+          access_key: "3dd683e7-1a09-495e-8a60-4489e0ba7ab9",
+          name: fname + " " + lname, // Combines First and Last name cleanly
           email: email,
           message: message,
-          _subject: "New Project Inquiry from Ezyix Website!"
+          subject: "🔥 New Project Inquiry from Ezyix Website!",
+          from_name: "Ezyix Website"
       })
     })
     .then(response => response.json())
