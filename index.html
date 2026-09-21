@@ -10,9 +10,6 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#services" onclick="closeMobileMenu()">Services</a>
@@ -407,30 +404,6 @@
 </footer>
 
 <script>
-  // ===== CUSTOM CURSOR =====
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mouseX = 0, mouseY = 0;
-  document.addEventListener('mousemove', e => {
-    mouseX = e.clientX; mouseY = e.clientY;
-    cursor.style.left = mouseX + 'px';
-    cursor.style.top = mouseY + 'px';
-    setTimeout(() => {
-      ring.style.left = mouseX + 'px';
-      ring.style.top = mouseY + 'px';
-    }, 80);
-  });
-  document.querySelectorAll('a, button, .project-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'translate(-50%,-50%) scale(2.2)';
-      ring.style.opacity = '0';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
-      ring.style.opacity = '0.5';
-    });
-  });
-
   // ===== DARK/LIGHT MODE =====
   const html = document.documentElement;
   const themeBtn = document.getElementById('themeToggle');
