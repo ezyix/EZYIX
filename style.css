@@ -851,7 +851,7 @@
     z-index: 1000;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 1rem;
   }
   .modal-overlay.active { 
     display: flex; 
