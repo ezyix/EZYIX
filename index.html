@@ -251,7 +251,7 @@
         <p class="project-desc">Your trusted partner for accurate translation, expert consultancy, and professional CV writing services. We help you succeed locally and globally.</p>
         <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
       </div>
-    </div>      
+    </div>
     <div class="project-card reveal" onclick="openProjectModal('thwaba')">
       <div class="project-image">
         <img src="images/Thwab image.png" alt="Thwaba Perfumes" loading="lazy">
@@ -259,6 +259,26 @@
       <div class="project-info">
         <h3>Thwaba Perfumes</h3>
         <p class="project-desc">An Arabian luxury perfume collection website featuring curated scents with sophisticated UI and immersive experience.</p>
+        <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
+      </div>
+    </div>
+    <div class="project-card reveal" onclick="openProjectModal('markaz')">
+      <div class="project-image">
+        <img src="images/markaz athari.png" alt="Quiz - Al Markazul Athari" loading="lazy">
+      </div>
+      <div class="project-info">
+        <h3>Quiz - Al Markazul Athari</h3>
+        <p class="project-desc">A clean and engaging quiz platform designed for learning, participation, and an interactive Islamic educational experience.</p>
+        <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
+      </div>
+    </div>
+    <div class="project-card reveal" onclick="openProjectModal('ukquran')">
+      <div class="project-image">
+        <img src="images/uk quran.png" alt="UK Quran" loading="lazy">
+      </div>
+      <div class="project-info">
+        <h3>UK Quran</h3>
+        <p class="project-desc">A refined Quran learning experience focused on Tajweed, recitation guidance, and a structured online education journey.</p>
         <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
       </div>
     </div>
@@ -484,7 +504,7 @@
         'Fast loading and performance-optimised',
         'Clean, modern aesthetic aligned with luxury branding'
       ],
-      response: '"The website exceeded our expectations. It perfectly captures the essence of our luxury brand and has significantly increased our customer engagement. The design is elegant and the user experience is seamless."',
+      response: '',
       link: 'https://ezyix.github.io/Havi-perfumes/'
     },
     thwaba: {
@@ -497,7 +517,7 @@
         'Mobile-first responsive design',
         'Optimised for conversions and user engagement'
       ],
-      response: '"Thwaba Perfumes team did an outstanding job bringing our vision to life. The website beautifully showcases our curated collection with an immersive and elegant design that resonates with our target audience."',
+      response: '',
       link: 'https://ezyix.github.io/Thwaba-Perfumes/'
     },
     turjumaan: {
@@ -510,9 +530,35 @@
         'Optimized for speed and performance',
         'Integrated contact and inquiry forms for customer engagement'
       ],
-      response: '"The Turjumaan website is a testament to the team\'s dedication to quality and user experience. The design is clean, the navigation is intuitive, and it has helped us connect with our customers more effectively."',
+      response: '',
       link: 'https://turjumaan.com'
-    }    
+    },
+    markaz: {
+      title: 'Quiz - Al Markazul Athari',
+      image: 'images/markaz athari.png',
+      features: [
+        'Interactive quiz layout with a polished educational feel',
+        'Clean dashboard and participant tracking experience',
+        'Responsive UI for desktop and mobile screens',
+        'Focused on engagement and online learning',
+        'Simple, modern styling aligned with the brand identity'
+      ],
+      response: '',
+      link: '#'
+    },
+    ukquran: {
+      title: 'UK Quran',
+      image: 'images/uk quran.png',
+      features: [
+        'Elegant Quran study design with spiritual focus',
+        'Clear presentation of Tajweed and recitation learning',
+        'Designed for beginners and progressing learners',
+        'Soft, premium visuals with strong readability',
+        'Simple user journey for guided online learning'
+      ],
+      response: '',
+      link: '#'
+    }
   };
 
   function openProjectModal(id) {
