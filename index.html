@@ -228,58 +228,133 @@
     <div class="section-label">Portfolio</div>
     <h2>Latest Projects</h2>
   </div>
-  <div class="projects-grid">
-    <div class="project-card reveal" onclick="openProjectModal('havi')">
-      <div class="project-image">
-        <img src="images/Havi image.png" alt="Havi Perfumes" loading="lazy">
-      </div>
-      <div class="project-info">
-        <h3>Havi Perfumes</h3>
-        <p class="project-desc">A luxurious perfume brand website showcasing premium fragrances with elegant design and smooth user experience.</p>
-        <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
-      </div>
-    </div>
-    <div class="project-card reveal" onclick="openProjectModal('turjumaan')">
-      <div class="project-image">
-        <img src="images/turjumaan image.png" alt="Turjumaan" loading="lazy">
-      </div>
-      <div class="project-info">
-        <h3>Turjumaan</h3>
-        <p class="project-desc">Your trusted partner for accurate translation, expert consultancy, and professional CV writing services. We help you succeed locally and globally.</p>
-        <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
-      </div>
-    </div>
-    <div class="project-card reveal" onclick="openProjectModal('thwaba')">
-      <div class="project-image">
-        <img src="images/Thwab image.png" alt="Thwaba Perfumes" loading="lazy">
-      </div>
-      <div class="project-info">
-        <h3>Thwaba Perfumes</h3>
-        <p class="project-desc">An Arabian luxury perfume collection website featuring curated scents with sophisticated UI and immersive experience.</p>
-        <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
+<div class="projects-carousel">
+
+  <!-- Slides -->
+  <div class="project-slides">
+
+    <div class="project-slide active" data-project="havi">
+      <picture>
+        <source media="(max-width: 500px)" srcset="images/havi-mobile.jpeg">
+        <img src="images/Havi image.png" alt="Havi Perfumes">
+      </picture>
+
+      <div class="project-overlay"></div>
+
+      <div class="project-content">
+        <h2>Havi Perfumes</h2>
+
+        <p>
+          A luxurious perfume brand website showcasing premium fragrances
+          with elegant design and smooth user experience.
+        </p>
+
+        <button class="project-btn" onclick="openProjectModal('havi')">
+          <span>▶</span> View Project
+        </button>
       </div>
     </div>
-    <div class="project-card reveal" onclick="openProjectModal('markaz')">
-      <div class="project-image">
-        <img src="images/markaz athari.png" alt="Quiz - Al Markazul Athari" loading="lazy">
-      </div>
-      <div class="project-info">
-        <h3>Quiz - Al Markazul Athari</h3>
-        <p class="project-desc">A clean and engaging quiz platform designed for learning, participation, and an interactive Islamic educational experience.</p>
-        <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
+
+    <div class="project-slide" data-project="turjumaan">
+      <picture>
+        <source media="(max-width: 500px)" srcset="images/turjumaan-mobile.jpeg">
+        <img src="images/turjumaan image.png" alt="Turjumaan">
+      </picture>
+
+      <div class="project-overlay"></div>
+
+      <div class="project-content">
+        <h2>Turjumaan</h2>
+
+        <p>
+          Your trusted partner for accurate translation, expert consultancy,
+          and professional CV writing services.
+        </p>
+
+        <button class="project-btn" onclick="openProjectModal('turjumaan')">
+          <span>▶</span> View Project
+        </button>
       </div>
     </div>
-    <div class="project-card reveal" onclick="openProjectModal('ukquran')">
-      <div class="project-image">
-        <img src="images/uk quran.png" alt="UK Quran" loading="lazy">
-      </div>
-      <div class="project-info">
-        <h3>UK Quran</h3>
-        <p class="project-desc">A refined Quran learning experience focused on Tajweed, recitation guidance, and a structured online education journey.</p>
-        <button class="project-btn">Open Project <span class="arrow">&rarr;</span></button>
+
+    <div class="project-slide" data-project="thwaba">
+      <picture>
+        <source media="(max-width: 500px)" srcset="images/thwaba-mobile.jpeg">
+        <img src="images/thwab image.png" alt="Thwaba Perfumes">
+      </picture>
+
+      <div class="project-overlay"></div>
+
+      <div class="project-content">
+        <h2>Thwaba Perfumes</h2>
+
+        <p>
+          An Arabian luxury perfume collection website featuring curated
+          scents with sophisticated UI and immersive experience.
+        </p>
+
+        <button class="project-btn" onclick="openProjectModal('thwaba')">
+          <span>▶</span> View Project
+        </button>
       </div>
     </div>
+
+    <div class="project-slide" data-project="markaz">
+      <picture>
+        <source media="(max-width: 500px)" srcset="images/athari-mobile.jpeg">
+        <img src="images/markaz athari.png" alt="Quiz - Al Markazul Athari">
+      </picture>
+
+      <div class="project-overlay"></div>
+
+      <div class="project-content">
+        <h2>Quiz - Al Markazul Athari</h2>
+
+        <p>
+          A clean and engaging quiz platform designed for learning,
+          participation, and an interactive Islamic educational experience.
+        </p>
+
+        <button class="project-btn" onclick="openProjectModal('markaz')">
+          <span>▶</span> View Project
+        </button>
+      </div>
+    </div>
+
+    <div class="project-slide" data-project="ukquran">
+      <picture>
+        <source media="(max-width: 500px)" srcset="images/uk-mobile.jpeg">
+        <img src="images/uk quran.png" alt="UK Quran">
+      </picture>
+
+      <div class="project-overlay"></div>
+
+      <div class="project-content">
+        <h2>UK Quran</h2>
+
+        <p>
+          A refined Quran learning experience focused on Tajweed,
+          recitation guidance, and a structured online education journey.
+        </p>
+
+        <button class="project-btn" onclick="openProjectModal('ukquran')">
+          <span>▶</span> View Project
+        </button>
+      </div>
+    </div>
+
   </div>
+
+  <!-- Dots -->
+  <div class="carousel-dots">
+    <button class="dot active" onclick="goToProject(0)"></button>
+    <button class="dot" onclick="goToProject(1)"></button>
+    <button class="dot" onclick="goToProject(2)"></button>
+    <button class="dot" onclick="goToProject(3)"></button>
+    <button class="dot" onclick="goToProject(4)"></button>
+  </div>
+
+</div>
 </section>
 
 <!-- Project Modal -->
@@ -407,7 +482,7 @@
   // ===== DARK/LIGHT MODE =====
   const html = document.documentElement;
   const themeBtn = document.getElementById('themeToggle');
-  const savedTheme = localStorage.getItem('ezyix-theme') || 'dark';
+  const savedTheme = localStorage.getItem('ezyix-theme') || 'light';
   setTheme(savedTheme);
 
   function setTheme(theme) {
@@ -482,7 +557,7 @@
     },
     thwaba: {
       title: 'Thwaba Perfumes',
-      image: 'images/thwab image.png',
+        image: 'images/thwab image.png',
       features: [
         'Sophisticated Arabian luxury perfume collection display',
         'Interactive product filtering and search',
@@ -491,7 +566,7 @@
         'Optimised for conversions and user engagement'
       ],
       response: '',
-      link: 'https://ezyix.github.io/Thwaba-Perfumes/'
+      link: 'https://ezyix.github.io/Twaba-Perfumes/'
     },
     turjumaan: {
       title: 'Turjumaan',
@@ -517,7 +592,7 @@
         'Simple, modern styling aligned with the brand identity'
       ],
       response: '',
-      link: '#'
+      link: 'https://quiz-markaz-athari.vercel.app/admin'
     },
     ukquran: {
       title: 'UK Quran',
@@ -530,7 +605,7 @@
         'Simple user journey for guided online learning'
       ],
       response: '',
-      link: '#'
+      link: 'https://ukquran.netlify.app/'
     }
   };
 
@@ -538,7 +613,12 @@
     const p = projectsData[id];
     if (!p) return;
     document.getElementById('modalTitle').textContent = p.title;
-    document.getElementById('modalImage').src = p.image;
+    const modalImage = document.getElementById('modalImage');
+    modalImage.onerror = () => {
+      modalImage.onerror = null;
+      modalImage.src = 'images/hero.jpg';
+    };
+    modalImage.src = p.image;
     document.getElementById('modalResponse').textContent = p.response;
     document.getElementById('modalLink').href = p.link;
     const list = document.getElementById('modalFeatures');
@@ -774,6 +854,55 @@ observer.observe(hero);
       }
     });
   });
+
+  
+</script>
+<script>
+  let currentProject = 0;
+  let projectTimer;
+
+  const projectSlides = document.querySelectorAll(".project-slide");
+  const projectDots = document.querySelectorAll(".dot");
+
+  function showProject(index) {
+
+    if (index >= projectSlides.length) {
+      currentProject = 0;
+    } else if (index < 0) {
+      currentProject = projectSlides.length - 1;
+    } else {
+      currentProject = index;
+    }
+
+    projectSlides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === currentProject);
+    });
+
+    projectDots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === currentProject);
+    });
+  }
+
+  function goToProject(index) {
+    showProject(index);
+
+    // Restart 5-second timer after clicking a dot
+    restartProjectTimer();
+  }
+
+  function startProjectTimer() {
+    projectTimer = setInterval(() => {
+      showProject(currentProject + 1);
+    }, 5000);
+  }
+
+  function restartProjectTimer() {
+    clearInterval(projectTimer);
+    startProjectTimer();
+  }
+
+  // Start automatic slideshow
+  startProjectTimer();
 </script>
 </body>
 </html>
