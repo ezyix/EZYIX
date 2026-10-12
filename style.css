@@ -64,10 +64,12 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 1.1rem 3rem;
     background: var(--nav-bg);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
     transition: var(--theme-transition);
+    border-radius: 999px;
+    margin: 10px;
   }
   .nav-logo {
     font-family: 'Clash Display', sans-serif;
